@@ -12,7 +12,7 @@ const Footer = () => {
                 </p>
             </div>
             <div>
-                <p className='text-xl font-medium mb-5'>FundVentory</p>
+                <p className='text-xl font-medium mb-5'>FundVentory x</p>
                 <ul className='flex flex-col gap-1 text-gray-600'>
                     <li><a href="/">Home</a></li>
                     <li><a href="/about">About us</a></li>
