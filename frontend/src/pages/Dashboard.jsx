@@ -1,3 +1,4 @@
+import React from 'react'
 import React, { useContext } from 'react'
 import { ShopContext } from '../context/ShopConext'
 import Title from '../components/Title';
