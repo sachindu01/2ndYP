@@ -77,6 +77,8 @@ import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
 import uni_logo from './uni_logo.png'
 import uni_logo1 from './uni_logo1.png'
+import fund_icon from './fund.png'
+import inventory_icon from './inventory.png'
 
 export const assets = {
     logo,
@@ -97,7 +99,9 @@ export const assets = {
     razorpay_logo,
     stripe_logo,
     cross_icon,
-    uni_logo,uni_logo1
+    uni_logo,uni_logo1,
+    fund_icon,
+    inventory_icon
 }
 
 export const products = [
