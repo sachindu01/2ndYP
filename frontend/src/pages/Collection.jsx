@@ -99,13 +99,16 @@ const Collection = () => {
           <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
           <div className="flex flex-col gap-2 text-sm font-light">
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Men"} onChange={toggleCategory}/>Men
+              <input className="w-3" type="checkbox" value={"Consumables"} onChange={toggleCategory}/>Consumables
             </p>
             <p className="flex gap-2">
-            <input className="w-3" type="checkbox" value={"Women"} onChange={toggleCategory}/>Women
+            <input className="w-3" type="checkbox" value={"Components"} onChange={toggleCategory}/>Components
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Kids"} onChange={toggleCategory}/>Kids
+              <input className="w-3" type="checkbox" value={"Equipment"} onChange={toggleCategory}/>Equipment
+            </p>
+            <p className="flex gap-2">
+              <input className="w-3" type="checkbox" value={"Stations"} onChange={toggleCategory}/>Stations
             </p>
 
           </div>
@@ -115,13 +118,13 @@ const Collection = () => {
           <p className='mb-3 text-sm font-medium'>TYPE</p>
           <div className="flex flex-col gap-2 text-sm font-light">
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Topwear"} onChange={toggleSubCategory}/>Topwear
+              <input className="w-3" type="checkbox" value={"Resistors"} onChange={toggleSubCategory}/>Resistors
             </p>
             <p className="flex gap-2">
-            <input className="w-3" type="checkbox" value={"Bottomwear"} onChange={toggleSubCategory}/>Bottomwear
+            <input className="w-3" type="checkbox" value={"IC"} onChange={toggleSubCategory}/>IC
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Winterwear"} onChange={toggleSubCategory}/>Winterwear
+              <input className="w-3" type="checkbox" value={"LED"} onChange={toggleSubCategory}/>LED
             </p>
 
           </div>

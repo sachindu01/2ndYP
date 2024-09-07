@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { ShopContext } from '../context/ShopConext'
 import Title from '../components/Title';
 
-const Orders = () => {
+const Dashboard = () => {
   const {products,currency} = useContext(ShopContext);
 
 
@@ -49,4 +49,4 @@ const Orders = () => {
   )
 }
 
-export default Orders
+export default Dashboard

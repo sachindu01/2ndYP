@@ -69,7 +69,7 @@ const Product = () => {
         <button onClick={()=>addToCart(productData._id,size)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>ADD TO CART</button>
         <hr className='mt-8 sm:w-4/5'/>
         <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
-          <p>100% Original Products</p>
+          <p>Must be returned within the allocated time period</p>
           <p>Cash on delivary is available on this product</p>
           <p>Easy return and exchange policy within 7 days</p>
 

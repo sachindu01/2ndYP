@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <div className='flex items-center justify-between py-5 font-medium'>
-            <Link to='/'><img src={assets.uni_logo} className='w-36' alt="Logo" /></Link>
+            <Link to='/'><img src={assets.uni_logo1} className='w-80 mt-5 mb-5' alt="Logo" /></Link>
             <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
                 <NavLink to="/" className="flex flex-col items-center gap-1">
                     <p>HOME</p>

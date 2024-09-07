@@ -1,17 +1,3 @@
-import p_img1 from './p_img1.png'
-import p_img2_1 from './p_img2_1.png'
-import p_img2_2 from './p_img2_2.png'
-import p_img2_3 from './p_img2_3.png'
-import p_img2_4 from './p_img2_4.png'
-import p_img3 from './p_img3.png'
-import p_img4 from './p_img4.png'
-import p_img5 from './p_img5.png'
-import p_img6 from './p_img6.png'
-import p_img7 from './p_img7.png'
-import p_img8 from './p_img8.png'
-import p_img9 from './p_img9.png'
-import p_img10 from './p_img10.png'
-import p_img11 from './p_img11.png'
 import p_img12 from './p_img12.png'
 import p_img13 from './p_img13.png'
 import p_img14 from './p_img14.png'
@@ -57,6 +43,18 @@ import p_img52 from './p_img52.png'
 import r1 from './r1.png'
 import l1 from './l1.png'
 import ic1 from './ic1.png'
+import w1 from './w1.png'
+import w2 from './w2.png'
+
+import EQ1140 from './EQ1140.png'
+import EQ1143 from './EQ1143.png'
+import EQ1144 from './EQ1144.png'
+
+import MSA from './MSA.png'
+import SSA from './SSA.png'
+import ASA from './ASA.png'
+
+import CM51 from './CM51.png'
 
 
 import logo from './logo.png'
@@ -78,6 +76,7 @@ import razorpay_logo from './razorpay_logo.png'
 import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
 import uni_logo from './uni_logo.png'
+import uni_logo1 from './uni_logo1.png'
 
 export const assets = {
     logo,
@@ -98,30 +97,31 @@ export const assets = {
     razorpay_logo,
     stripe_logo,
     cross_icon,
-    uni_logo
+    uni_logo,uni_logo1
 }
 
 export const products = [
+    
     {
         _id: "aaaaa",
         name: "IC",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 100,
         image: [ic1],
-        category: "Women",
-        subCategory: "Topwear",
+        category: "Consumables",
+        subCategory: "IC",
         sizes: ["S", "M", "L"],
         date: 1716634345448,
         bestseller: true
     },
     {
         _id: "aaaab",
-        name: "Led",
+        name: "LED",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 200,
         image: [l1],
-        category: "Men",
-        subCategory: "Topwear",
+        category: "Consumables",
+        subCategory: "LED",
         sizes: ["M", "L", "XL"],
         date: 1716621345448,
         bestseller: true
@@ -132,43 +132,43 @@ export const products = [
         description: "Resistor used to control the current flow",
         price: 220,
         image: [r1],
-        category: "Kids",
-        subCategory: "Topwear",
+        category: "Consumables",
+        subCategory: "Resistors",
         sizes: ["S", "L", "XL"],
         date: 1716234545448,
         bestseller: true
     },
     {
         _id: "aaaad",
-        name: "Men Round Neck Pure Cotton T-shirt",
+        name: "Circuit Wires",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 110,
-        image: [p_img4],
-        category: "Men",
-        subCategory: "Topwear",
+        image: [w1],
+        category: "Consumables",
+        subCategory: "Wires",
         sizes: ["S", "M", "XXL"],
         date: 1716621345448,
         bestseller: true
     },
     {
         _id: "aaaae",
-        name: "Women Round Neck Cotton Top",
+        name: "Single-core wires",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 130,
-        image: [p_img5],
-        category: "Women",
-        subCategory: "Topwear",
+        image: [w2],
+        category: "Consumables",
+        subCategory: "Equipment",
         sizes: ["M", "L", "XL"],
         date: 1716622345448,
         bestseller: true
     },
     {
         _id: "aaaaf",
-        name: "Girls Round Neck Cotton Top",
+        name: "Impact Drill",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 140,
-        image: [p_img6],
-        category: "Kids",
+        image: [EQ1140],
+        category: "Equipment",
         subCategory: "Topwear",
         sizes: ["S", "L", "XL"],
         date: 1716623423448,
@@ -176,11 +176,11 @@ export const products = [
     },
     {
         _id: "aaaag",
-        name: "Men Tapered Fit Flat-Front Trousers",
+        name: "Mini Grinder",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 190,
-        image: [p_img7],
-        category: "Men",
+        image: [EQ1143],
+        category: "Equipment",
         subCategory: "Bottomwear",
         sizes: ["S", "L", "XL"],
         date: 1716621542448,
@@ -188,11 +188,11 @@ export const products = [
     },
     {
         _id: "aaaah",
-        name: "Men Round Neck Pure Cotton T-shirt",
+        name: "Heat Gun",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 140,
-        image: [p_img8],
-        category: "Men",
+        image: [EQ1144],
+        category: "Equipment",
         subCategory: "Topwear",
         sizes: ["S", "M", "L", "XL"],
         date: 1716622345448,
@@ -200,11 +200,11 @@ export const products = [
     },
     {
         _id: "aaaai",
-        name: "Girls Round Neck Cotton Top",
+        name: "Assembly Station A",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 100,
-        image: [p_img9],
-        category: "Kids",
+        image: [ASA],
+        category: "Stations",
         subCategory: "Topwear",
         sizes: ["M", "L", "XL"],
         date: 1716621235448,
@@ -212,11 +212,11 @@ export const products = [
     },
     {
         _id: "aaaaj",
-        name: "Men Tapered Fit Flat-Front Trousers",
+        name: "Measuring Station A",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 110,
-        image: [p_img10],
-        category: "Men",
+        image: [MSA],
+        category: "Stations",
         subCategory: "Bottomwear",
         sizes: ["S", "L", "XL"],
         date: 1716622235448,
@@ -224,11 +224,11 @@ export const products = [
     },
     {
         _id: "aaaak",
-        name: "Men Round Neck Pure Cotton T-shirt",
+        name: "Soldering station A",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 120,
-        image: [p_img11],
-        category: "Men",
+        image: [SSA],
+        category: "Stations",
         subCategory: "Topwear",
         sizes: ["S", "M", "L"],
         date: 1716623345448,
@@ -236,11 +236,11 @@ export const products = [
     },
     {
         _id: "aaaal",
-        name: "Men Round Neck Pure Cotton T-shirt",
-        description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+        name: "Arduino Shield",
+        description: "boards that can be plugged on top of the Arduino PCB extending its capabilities",
         price: 150,
-        image: [p_img12],
-        category: "Men",
+        image: [CM51],
+        category: "Components",
         subCategory: "Topwear",
         sizes: ["S", "M", "L", "XL"],
         date: 1716624445448,
