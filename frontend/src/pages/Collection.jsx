@@ -56,11 +56,11 @@ const Collection = () => {
 
     switch (sortType){
       case 'low-high':
-        setFilterProducts(fpCopy.sort((a,b)=>(a.price-b.price)));
+        setFilterProducts(fpCopy.sort((a,b)=>(a.quantity-b.quantity)));
         break;
       
       case 'high-low':
-        setFilterProducts(fpCopy.sort((a,b)=>(b.price-a.price)));
+        setFilterProducts(fpCopy.sort((a,b)=>(b.quantity-a.quantity)));
         break;
 
       default:
@@ -145,7 +145,7 @@ const Collection = () => {
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6'>
           {
             filterProducts.map((item,index)=>(
-              <ProductItem key={index} name={item.name} image={item.image} price ={item.price} id= {item._id} />
+              <ProductItem key={index} name={item.name} image={item.image} quantity ={item.quantity} id= {item._id} />
             ))
           }
 
