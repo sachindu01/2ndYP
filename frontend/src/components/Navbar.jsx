@@ -40,7 +40,7 @@ const Navbar = () => {
             alt="uni logo"
           />
 
-          <div className="ml-2 hidden sm:block">
+          <div className="ml-2 hidden lg:block">
             <p className="m-0 text-black text-sm">
               Department of Computer Engineering
             </p>
