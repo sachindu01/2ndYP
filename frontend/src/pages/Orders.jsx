@@ -9,7 +9,7 @@ const Orders = () => {
   return (
     <div className='border-t pt-16'>
       <div className='text-2xl'>
-        <Title text1={'MY'} text2={'ORDERS'}/>
+        <Title text1={'MY'} text2={'REQUESTS'}/>
 
       </div>
       <div>
@@ -32,7 +32,7 @@ const Orders = () => {
             <div className='md:w-1/2 flex justify-between'>
                 <div className='flex items-center gap-2'>
                   <p className='min-w-2 h-2 rounded-full bg-green-500'></p>
-                  <p className='text-sm md:text-base'>Ready to ship</p>
+                  <p className='text-sm md:text-base'>Request Accepted</p>
 
                 </div>
                 <button className='border px-4 py-2 text-sm font-medium rounded-sm'>Track Order</button>
