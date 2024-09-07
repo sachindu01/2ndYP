@@ -48,15 +48,8 @@ const Product = () => {
         {/*-------------Product Info--------*/}
         <div className='flex-1'>
           <h1 className='font-medium text-2xl mt-2'>{productData.name}</h1>
-          <div className='flex items-center gap-1 mt-2'>
-            <img src={assets.star_icon} alt="Star Icon" className="w-3.5" />
-            <img src={assets.star_icon} alt="Star Icon" className="w-3.5" />
-            <img src={assets.star_icon} alt="Star Icon" className="w-3.5" />
-            <img src={assets.star_icon} alt="Star Icon" className="w-3.5" />
-            <img src={assets.star_dull_icon} alt="Star Icon" className="w-3.5" />
-            <p className='pl-2'>(122)</p>
-          </div>
-          <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
+          
+          <p className='mt-5 font-medium'>Available Quantity: {productData.quantity}</p>
           <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
           <div className='flex flex-col gap-4 my-8'>
           <p>Select Size</p>
