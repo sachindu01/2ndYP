@@ -83,7 +83,7 @@ const Cart = () => {
               onClick={() => navigate('/dashboard')}
               className="bg-black text-white text-sm my-8 px-8 py-3"
             >
-              PROCEED TO CHECKOUT
+              CONFIRM REQUEST
             </button>
           </div>
         </div>

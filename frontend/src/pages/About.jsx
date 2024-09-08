@@ -14,10 +14,10 @@ const About = () => {
       <div className='my-10 flex flex-col md:flex-row gap-16'>
         <img className='w-full md:max-w-[450px]' src={assets.about_img} alt=""/>
         <div className='flex flex-col justify-center gap-6 md:w-2/4 text-gray-600'>
-        <p>At Forever, we believe that fashion is more than just clothing—it's a form of self-expression, a way to tell your story. Our brand is built on the idea that great style is forever, and our mission is to provide you with high-quality, stylish pieces that you'll love to wear now and cherish for years to come</p>
-        <p>We are committed to sustainability, quality, and inclusivity. Every piece in our collection is crafted with care, using materials that are not only beautiful but also durable and responsibly sourced</p>
+        <p>Welcome to Fundventory, your one-stop solution for managing both project funds and inventory with ease. Our platform is designed to streamline the process of tracking and managing resources, ensuring that students and administrators have the tools they need to efficiently handle requests, approvals, and inventory distribution.</p>
+        <p>With Fundventory, users can easily check the availability of items, submit funding requests, and monitor the status of their projects—all in one place.</p>
         <b className='text-gray-600'>Our Mission</b>
-        <p>Forever is more than just a fashion brand—it's a community. We aim to inspire confidence and creativity in our customers, empowering them to embrace their individuality through fashion</p>
+        <p>Our mission at Fundventory is to empower academic institutions by providing a seamless and efficient platform for managing project funds and inventory. We strive to streamline resource allocation, improve transparency, and enhance the user experience for students, faculty, and administrators.</p>
 
         </div>
       </div>

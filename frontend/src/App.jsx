@@ -13,6 +13,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
 import Dashboard from './pages/Dashboard'
+import PendingRequest from './pages/PendingRequest'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
@@ -33,6 +34,7 @@ const App = () => {
         <Route path='/place-order' element={<PlaceOrder/>}/>
         <Route path='/orders' element={<Orders/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/request-status' element={<PendingRequest/>}/>
 
       </Routes>
       <Footer/>

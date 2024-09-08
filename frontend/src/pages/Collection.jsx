@@ -13,7 +13,7 @@ const Collection = () => {
   const [sortType, setSortType] = useState('relevant');
 
   const subCategoryOptions = {
-    Consumables: ["Resistors", "IC", "LED"],
+    Consumables: ["Resistors", "IC Bases", "LED","Wires"],
     Equipment: ["Drills", "Grinders"],
     Components: ["Capacitors", "Transistors"],
     Stations: ["Measuring", "Soldering","Assembly"],
