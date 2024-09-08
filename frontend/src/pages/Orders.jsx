@@ -21,7 +21,7 @@ const Orders = () => {
               <div>
                 <p className='sm:text-base font-medium'>{item.name}</p>
                 <div className='flex items-center gap-3 mt-2 text-base text-gray-700'>
-                  <p className='text-lg'>{currency}{item.price}</p>
+                  
                   <p>Quantity:1 </p>
                   <p>Size: M</p>
 
@@ -35,7 +35,7 @@ const Orders = () => {
                   <p className='text-sm md:text-base'>Request Accepted</p>
 
                 </div>
-                <button className='border px-4 py-2 text-sm font-medium rounded-sm'>Track Order</button>
+                <button className='border px-4 py-2 text-sm font-medium rounded-sm'>Track Request</button>
 
 
             </div>

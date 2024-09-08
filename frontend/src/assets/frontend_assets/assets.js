@@ -187,7 +187,7 @@ export const products = [
         quantity: 120,
         image: [SSA],
         category: "Stations",
-        subCategory: "Measuring",
+        subCategory: "Soldering",
         sizes: ["S", "M", "L"],
         date: 1716623345448,
         available: false
