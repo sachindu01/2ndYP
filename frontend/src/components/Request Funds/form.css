@@ -74,6 +74,7 @@
     font-size: 18px;
     font-weight: normal;
     padding-left: 100px;
+    width: 100%;
 }
 
 .report label {
@@ -99,3 +100,45 @@
     
 }
 
+/* Responsive styling */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column; /* Stack labels and inputs vertically */
+        align-items: flex-start; /* Align items to the start of the row */
+        padding: 10px; /* Reduce padding for smaller screens */
+    }
+
+    .form-label {
+        padding-left: 0; /* Remove left padding on smaller screens */
+        margin-bottom: 5px; /* Add margin below label */
+        text-align: left; /* Keep text aligned left */
+    }
+
+    .form-input,.report {
+        width: 100%; /* Ensure input takes full width in its row */
+    }
+
+    .form-control {
+        width: 100%; /* Full width for input fields on smaller screens */
+    }
+
+    .form-control, .date-input, .pdf-input {
+        width: 100%; /* Full width for input fields on smaller screens */
+    }
+
+    .report {
+        padding-left: 0; /* Remove padding for smaller screens */
+        text-align: left; /* Align content to the left */
+        margin-top: 10px; /* Add margin to separate the report section */
+    }
+
+    .report label, .error-text, .file-instructions {
+        width: 100%; /* Full width for elements within the report section */
+        text-align: left; /* Align text to the left */
+        padding-left: 0; /* Remove any left padding */
+    }
+
+    .pdf-input {
+        margin-top: 5px; /* Add space between input and other content */
+    }
+}
