@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Stepper from './stepper';
 import Button from './submitButton';
 import ApplicationForm from './form';
 import './RequestFunds.css';
+import {useNavigate} from "react-router-dom";
 
 
 const RequestFunds  = () => {
   const steps = ['Contact Information', 'About the Project', 'Approval'];
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
+  const navigate = useNavigate();
 
   const handleButtonClick = () => {
     if (currentStep === steps.length) {
       setComplete(true);
+      navigate('/');
       
 
     } else {
       setCurrentStep((prev) => prev + 1);
        
     }
-  
+
   };
 
 
