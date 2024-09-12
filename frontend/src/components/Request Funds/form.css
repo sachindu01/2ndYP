@@ -1,0 +1,101 @@
+/* General styles for the container */
+.container {
+    background-color: white; /* Light grey background to match the screenshot */
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+/* Style for form rows */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5; /* White background for each form row */
+    padding: 20px;
+    border-radius: 4px;
+    }
+
+/* Style for labels */
+.form-label {
+    flex: 1;
+    color: #00334E; /* Label color */
+    font-size: 16px;
+    font-weight: normal;
+    padding-left: 100px;
+    text-align: left; /* Align labels to the left */
+    }
+      
+/* Style for input fields */
+.form-input {
+    flex: 2;
+}
+      
+.form-control {
+    width: 90%;
+    border: 1px solid #97bfd4; /* Border color for input fields */
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    margin: 5px;
+    }  
+
+.contact-info-lecturer{
+        color: #00334E;
+        font-size: 18px;
+        font-weight: 600;
+}
+
+.contact-info-title{
+    color: #00334E;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.radio-item {
+    margin-bottom: 15px; /* Adjust the space between the radio buttons */
+}
+
+.date-input {
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.report{
+    font-size: 18px;
+    font-weight: normal;
+    padding-left: 100px;
+}
+
+.report label {
+    /* display: block; */
+    margin-bottom: 10px;
+    color: #00334E; 
+}
+  
+.error-text {
+    display: block;
+    color: red;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+  
+.file-instructions {
+    margin-bottom: 10px;
+    color: #828282;
+}
+
+.pdf-input{
+    font-size: 16px;
+    
+}
+
