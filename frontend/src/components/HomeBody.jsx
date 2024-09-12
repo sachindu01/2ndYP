@@ -13,7 +13,7 @@ const HomeBody = () => {
         <p className='text-gray-400'>Easily request and manage inventory items</p>
       </div>
       <div>
-        <Link to='/collection'>
+        <Link to='/fund-form'>
           <img src={assets.fund_icon} className='w-12 m-auto mb-5' alt="Fund Request Icon" /> 
         <p className='font-semibold'>Request fund</p>
         </Link>
