@@ -1,5 +1,5 @@
 /* General styles for the container */
-.container {
+.formSection{
     background-color: white; /* Light grey background to match the screenshot */
     margin: auto;
     display: flex;
@@ -44,12 +44,12 @@
 .contact-info-lecturer{
         color: #00334E;
         font-size: 18px;
-        font-weight: 600;
+        font-weight: 500;
 }
 
 .contact-info-title{
     color: #00334E;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
 }
 

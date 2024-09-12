@@ -3,7 +3,7 @@ import React from 'react';
 
 const Approval= () => {
   return (
-    <div className="container">
+    <div className="formSection">
         <p class="contact-info-title">Approval of the Project</p>
 
         <p class="contact-info-lecturer">Information about the Lecture In-charge</p>
