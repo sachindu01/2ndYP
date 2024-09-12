@@ -60,7 +60,7 @@
   }
   
 .radio-item {
-    margin-bottom: 15px; /* Adjust the space between the radio buttons */
+    margin-bottom: 15px; 
 }
 
 .date-input {
@@ -78,7 +78,6 @@
 }
 
 .report label {
-    /* display: block; */
     margin-bottom: 10px;
     color: #00334E; 
 }
@@ -114,31 +113,27 @@
         text-align: left; /* Keep text aligned left */
     }
 
-    .form-input,.report {
-        width: 100%; /* Ensure input takes full width in its row */
-    }
-
-    .form-control {
-        width: 100%; /* Full width for input fields on smaller screens */
-    }
-
-    .form-control, .date-input, .pdf-input {
-        width: 100%; /* Full width for input fields on smaller screens */
+    .form-input,.report,.form-control, .date-input, .pdf-input{
+        width: 100%; 
     }
 
     .report {
-        padding-left: 0; /* Remove padding for smaller screens */
-        text-align: left; /* Align content to the left */
-        margin-top: 10px; /* Add margin to separate the report section */
+        padding-left: 0; 
+        text-align: left;
+        margin-top: 10px; 
     }
 
     .report label, .error-text, .file-instructions {
-        width: 100%; /* Full width for elements within the report section */
-        text-align: left; /* Align text to the left */
-        padding-left: 0; /* Remove any left padding */
+        width: 100%; 
+        text-align: left; 
+        padding-left: 0; 
+    }
+
+    .report, .error-text,.date-input,.radio-group{
+        font-size: 14px;
     }
 
     .pdf-input {
-        margin-top: 5px; /* Add space between input and other content */
+        margin-top: 5px; 
     }
 }

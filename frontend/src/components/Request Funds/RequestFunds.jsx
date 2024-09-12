@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Stepper from './stepper';
 import Button from './submitButton';
 import ApplicationForm from './form';
