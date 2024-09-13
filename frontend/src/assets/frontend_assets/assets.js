@@ -103,7 +103,7 @@ export const products = [
         subCategory: "Resistors",
         sizes: ["220", "480", "1K", "1.5k","2k" ],
         date: 1716234545448,
-        bestseller: true
+        available: true
     },
     {
         _id: "aaaad",
@@ -121,7 +121,7 @@ export const products = [
     {
         _id: "aaaae",
         name: "Single-core wires",
-        description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+        description: "Datasheet URL	: [Not Available],Price	: Rs. 10.00",
         price: 130,
         quantity: 130,
         image: [w2],
@@ -136,85 +136,117 @@ export const products = [
         name: "Impact Drill",
         description: "Input power: 650W, No-load speed: 0-2700rpm, Max. drilling capacity: 13mm, Variable speed control, Forward/Reverse switch, Hammer function",
         price: 140,
+        quantity: 140,
         image: [EQ1140],
         category: "Equipment",
-        subCategory: "Topwear",
+        subCategory: "Drills",
         sizes: ["S", "L", "XL"],
         date: 1716623423448,
-        bestseller: true
+        available: true
     },
     {
         _id: "aaaag",
         name: "Mini Grinder",
-        description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+        description: "No-load speed:10000-32000,rpm Collet size:3.2mm,Variable speed control,With 1pcs flexible shaft,With 52pcs accessories",
         price: 190,
+        quantity: 5,
         image: [EQ1143],
         category: "Equipment",
-        subCategory: "Bottomwear",
+        subCategory: "Grinders",
         sizes: ["S", "L", "XL"],
         date: 1716621542448,
-        bestseller: false
+        available: false
     },
     {
         _id: "aaaah",
         name: "Heat Gun",
-        description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+        description: "Temperature 50°C, 50-630°C, 50-630°C, Airflow 200-500 L/min, 200-500 L/min, 500 L/min, Adjustable temperature with LCD display for precise control, With 1 pcs scraper and 4 pcs nozzles, With 1 pcs 60mm putty trowel",
         price: 140,
+        quantity: 3,
         image: [EQ1144],
         category: "Equipment",
-        subCategory: "Topwear",
+        subCategory: "Grinders",
         sizes: ["S", "M", "L", "XL"],
         date: 1716622345448,
-        bestseller: false
+        available: false
     },
     {
         _id: "aaaai",
         name: "Assembly Station A",
-        description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+        description: "Capacity	: 1-3 students per table",
+        quantity: 1,
         price: 100,
         image: [ASA],
         category: "Stations",
-        subCategory: "Topwear",
+        subCategory: "Assembly",
         sizes: ["M", "L", "XL"],
         date: 1716621235448,
-        bestseller: false
+        available: false
     },
     {
         _id: "aaaaj",
         name: "Measuring Station A",
-        description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+        description: "Capacity	: 1-3 students per table",
+        quantity: 1,
         price: 110,
         image: [MSA],
         category: "Stations",
-        subCategory: "Bottomwear",
+        subCategory: "Measuring",
         sizes: ["S", "L", "XL"],
         date: 1716622235448,
-        bestseller: false
+        available: false
     },
     {
         _id: "aaaak",
         name: "Soldering station A",
-        description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+        description: "Capacity	: 1-3 students per table",
+        quantity: 1,
         price: 120,
         image: [SSA],
         category: "Stations",
-        subCategory: "Topwear",
+        subCategory: "Soldering",
         sizes: ["S", "M", "L"],
         date: 1716623345448,
-        bestseller: false
+        available: false
     },
     {
         _id: "aaaal",
+        name: "Assembly Station B",
+        description: "Capacity	: 1-3 students per table",
+        quantity: 1,
+        price: 150,
+        image: [ASB],
+        category: "Stations",
+        subCategory: "Assembly",
+        date: 1716622235448,
+        available: false
+    },
+    
+    {
+        _id: "aaaam",
         name: "Arduino Shield",
         description: "boards that can be plugged on top of the Arduino PCB extending its capabilities",
-        price: 150,
+        quantity: 5,
         image: [CM51],
         category: "Components",
-        subCategory: "Topwear",
-        sizes: ["S", "M", "L", "XL"],
+        subCategory: "Arduino",
+        sizes: ["Ethernet", "Xbee", "Proto"],
         date: 1716624445448,
-        bestseller: false
+        available: false
     },
+
+    {
+        _id: "aaaan",
+        name: "Raspberry Pi",
+        description: "Raspberry Pi 5 8GB RAM, SBC, Raspberry Pi5 8GB, BCM2712, Arm Cortex-A76, 8GB RAM, MicroSD, WiFi, HDMI, Power Button",
+        quantity: 2,
+        image: [rpie],
+        category: "Components",
+        subCategory: "Raspberry",
+        sizes: ["Ethernet", "Xbee", "Proto"],
+        date: 1716624445448,
+        available: false
+    }
     
    
 ]
