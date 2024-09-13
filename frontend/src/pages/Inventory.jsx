@@ -55,6 +55,7 @@ const Inventory = () => {
                     type="checkbox"
                     value={subCat}
                     onChange={toggleSubCategory}
+                    checked={subCategory.includes(subCat)}
                   />
                   {subCat}
                 </p>
