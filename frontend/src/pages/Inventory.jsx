@@ -9,10 +9,27 @@ const Inventory = () => {
   const { products } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts,setFilterProducts] = useState([]);
+  const [category,setCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
+
+  const toggleCategory = (e) => {
+    const selectedCategory = e.target.value;
+    if (category.includes(selectedCategory)) {
+      setCategory([]); // Deselect the category if it's already selected
+      setSubCategory([]); // Reset subcategory when category is deselected
+    } else {
+      setCategory([selectedCategory]); // Replace the category with the newly selected one
+      setSubCategory([]); // Reset subcategory when a new category is selected
+    }
+  };
 
   useEffect(()=>{
     setFilterProducts(products)
   },[])
+
+  useEffect(()=>{
+    console.log(category);
+  },[category])
 
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10'>
@@ -26,16 +43,16 @@ const Inventory = () => {
         <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
         <div className="flex flex-col gap-2 text-sm font-light">
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Consumables"} />Consumables
+              <input className="w-3" type="checkbox" value={"Consumables"} checked={category.includes("Consumables")} onChange={toggleCategory}/>Consumables
             </p>
             <p className="flex gap-2">
-            <input className="w-3" type="checkbox" value={"Components"} />Components
+            <input className="w-3" type="checkbox" value={"Components"} checked={category.includes("Components")} onChange={toggleCategory}/>Components
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Equipment"} />Equipment
+              <input className="w-3" type="checkbox" value={"Equipment"} checked={category.includes("Equipment")} onChange={toggleCategory}/>Equipment
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Stations"} />Stations
+              <input className="w-3" type="checkbox" value={"Stations"} checked={category.includes("Stations")} onChange={toggleCategory}/>Stations
             </p>
           </div>
         </div>
