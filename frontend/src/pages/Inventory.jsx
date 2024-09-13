@@ -7,7 +7,7 @@ import SearchBar from '../components/SearchBar';
 
 const Inventory = () => {
 
-  const { products } = useContext(ShopContext);
+  const { products,search} = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts,setFilterProducts] = useState([]);
   const [category,setCategory] = useState([]);
@@ -84,6 +84,11 @@ const Inventory = () => {
   const applyFilter = () => {
     let productsCopy = products.slice();
 
+    // Apply Search filter
+    if(search){
+      productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+    }
+
     // Apply category filter
     if (category.length > 0) {
       productsCopy = productsCopy.filter((item) =>
@@ -115,7 +120,7 @@ const Inventory = () => {
 
   useEffect(()=>{
     applyFilter();
-  },[category,subCategory,availabilityFilter])
+  },[category,subCategory,availabilityFilter,search])
 
     // Function to handle availability filter change
     const handleAvailabilityChange = (e) => {

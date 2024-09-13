@@ -8,6 +8,7 @@ export const ShopContext = createContext();
 const ShopContextProvider = (props) => {
     const currency = '$';
     const delivery_fee = 10;
+    const [search,setSearch] = useState('');
     const [cartItems,setCartItems] = useState({});
     const navigate = useNavigate();
 
@@ -81,6 +82,7 @@ const ShopContextProvider = (props) => {
 
     const value ={
         products , currency, delivery_fee,
+        search,setSearch,
         cartItems,addToCart,
         getCartCount,updateQuantity,
         getCartAmount, navigate
