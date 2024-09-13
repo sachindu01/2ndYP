@@ -46,7 +46,7 @@ const Inventory = () => {
       if (subCategories) {
         return (
           <div className="border border-gray-300 pl-5 py-3 my-5">
-            <p className="mb-3 text-sm font-medium">TYPE</p>
+            <p className="mb-3 text-sm font-medium">SUB CATEGORIES</p>
             <div className="flex flex-col gap-2 text-sm font-light">
               {subCategories.map((subCat, index) => (
                 <p key={index} className="flex gap-2">
@@ -66,6 +66,17 @@ const Inventory = () => {
     }
     return null;
   };
+
+  // Determine the text for Title component based on selected category and subcategory
+  const getTitleText = () => {
+    const selectedCategory = category.length > 0 ? category[0] : 'ALL';
+    const selectedSubCategory = subCategory.length > 0 ? subCategory.join(' / ')  : 'INVENTORY ITEMS'; // Show the first selected subcategory, or default
+
+    return { text1: selectedCategory, text2: selectedSubCategory };
+  };
+
+  const titleText = getTitleText();
+
 
   useEffect(()=>{
     setFilterProducts(products)
@@ -111,7 +122,7 @@ const Inventory = () => {
       {/*Right Side*/}
       <div className='flex-1'>
               <div className='flex justify-between text-base sm:text-2xl mb-4'>
-                <Title text1={'ALL'} text2={'INVENTORY ITEMS'}/>
+                <Title text1={titleText.text1.toUpperCase()} text2={titleText.text2.toUpperCase()} />
               </div>
               {/*Map Products */}
               <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6'>
