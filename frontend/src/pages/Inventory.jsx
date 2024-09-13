@@ -3,6 +3,7 @@ import { ShopContext } from '../context/ShopConext';
 import { assets } from '../assets/frontend_assets/assets';
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
+import SearchBar from '../components/SearchBar';
 
 const Inventory = () => {
 
@@ -121,7 +122,9 @@ const Inventory = () => {
       setAvailabilityFilter(e.target.value);
     };
  
+
   return (
+    <div> <SearchBar/>
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10'>
       {/* Filter Options */}
       <div className='min-w-60'> 
@@ -173,6 +176,7 @@ const Inventory = () => {
               </div>
 
       </div>
+    </div>
     </div>
   )
 }
