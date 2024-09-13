@@ -1,6 +1,6 @@
 import React from 'react';
 import { assets } from '../assets/frontend_assets/assets';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom'; 
 
 const HomeBody = () => {
   return (
