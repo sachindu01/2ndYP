@@ -12,6 +12,13 @@ const Inventory = () => {
   const [category,setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
 
+  const subCategoryOptions = {
+    Consumables: ["Resistors", "IC Bases", "LEDs","Wires"],
+    Equipment: ["Drills", "Grinders"],
+    Components: ["Arduino", "Raspberry"],
+    Stations: ["Measuring", "Soldering","Assembly"],
+  };
+
   const toggleCategory = (e) => {
     const selectedCategory = e.target.value;
     if (category.includes(selectedCategory)) {
@@ -23,6 +30,43 @@ const Inventory = () => {
     }
   };
 
+  const toggleSubCategory = (e) => {
+    if (subCategory.includes(e.target.value)) {
+      setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
+    } else {
+      setSubCategory((prev) => [...prev, e.target.value]);
+    }
+  };
+
+  const renderSubCategoryOptions = () => {
+    if (category.length === 1) {
+      const selectedCategory = category[0];
+      const subCategories = subCategoryOptions[selectedCategory];
+
+      if (subCategories) {
+        return (
+          <div className="border border-gray-300 pl-5 py-3 my-5">
+            <p className="mb-3 text-sm font-medium">TYPE</p>
+            <div className="flex flex-col gap-2 text-sm font-light">
+              {subCategories.map((subCat, index) => (
+                <p key={index} className="flex gap-2">
+                  <input
+                    className="w-3"
+                    type="checkbox"
+                    value={subCat}
+                    onChange={toggleSubCategory}
+                  />
+                  {subCat}
+                </p>
+              ))}
+            </div>
+          </div>
+        );
+      }
+    }
+    return null;
+  };
+
   useEffect(()=>{
     setFilterProducts(products)
   },[])
@@ -30,6 +74,10 @@ const Inventory = () => {
   useEffect(()=>{
     console.log(category);
   },[category])
+
+  useEffect(()=>{
+    console.log(subCategory);
+  },[subCategory])
 
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10'>
@@ -57,21 +105,8 @@ const Inventory = () => {
           </div>
         </div>
          {/*SubCategory filter */}
-         <div className={`border border-gray-300 pl-5 py-3 my-5 ${showFilter ? '' : 'hidden'} sm:block`}>
-          <p className='mb-3 text-sm font-medium'>TYPE</p>
-          <div className="flex flex-col gap-2 text-sm font-light">
-            <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Resistors"} />Resistors
-            </p>
-            <p className="flex gap-2">
-            <input className="w-3" type="checkbox" value={"IC"} />IC
-            </p>
-            <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"LED"} />LED
-            </p>
-
-          </div>
-        </div>
+         {renderSubCategoryOptions()}
+        
       </div>
       {/*Right Side*/}
       <div className='flex-1'>
