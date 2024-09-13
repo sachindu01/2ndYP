@@ -11,6 +11,7 @@ const Inventory = () => {
   const [filterProducts,setFilterProducts] = useState([]);
   const [category,setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+  const [availabilityFilter, setAvailabilityFilter] = useState('All');
 
   const subCategoryOptions = {
     Consumables: ["Resistors", "IC Bases", "LEDs","Wires"],
@@ -78,41 +79,48 @@ const Inventory = () => {
 
   const titleText = getTitleText();
 
+  // Function to apply all filters
   const applyFilter = () => {
     let productsCopy = products.slice();
 
+    // Apply category filter
     if (category.length > 0) {
       productsCopy = productsCopy.filter((item) =>
         category.includes(item.category)
       );
     }
 
+    // Apply subcategory filter
     if (subCategory.length > 0) {
       productsCopy = productsCopy.filter((item) =>
         subCategory.includes(item.subCategory)
       );
     }
-    
+
+    // Apply availability filter
+    productsCopy = productsCopy.filter((product) => {
+      if (availabilityFilter === 'All') {
+        return true;
+      } else if (availabilityFilter === 'In Stock') {
+        return product.available;
+      } else if (availabilityFilter === 'Out of Stock') {
+        return !product.available;
+      }
+      return true;
+    });
+
     setFilterProducts(productsCopy);
   };
 
-
-  useEffect(()=>{
-    setFilterProducts(products)
-  },[])
-
   useEffect(()=>{
     applyFilter();
-  },[category,subCategory])
+  },[category,subCategory,availabilityFilter])
 
-  useEffect(()=>{
-    console.log(category);
-  },[category])
-
-  useEffect(()=>{
-    console.log(subCategory);
-  },[subCategory])
-
+    // Function to handle availability filter change
+    const handleAvailabilityChange = (e) => {
+      setAvailabilityFilter(e.target.value);
+    };
+ 
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10'>
       {/* Filter Options */}
@@ -146,7 +154,14 @@ const Inventory = () => {
       <div className='flex-1'>
               <div className='flex justify-between text-base sm:text-2xl mb-4'>
                 <Title text1={titleText.text1.toUpperCase()} text2={titleText.text2.toUpperCase()} />
-              </div>
+               {/*Product Availability */}
+                <select id="availability" value={availabilityFilter} onChange={handleAvailabilityChange}
+                className='border-2 border=grat-300 text-sm px-2 sm:w-auto"' >  
+                  <option value="All">All</option>
+                  <option value="In Stock">In Stock</option>
+                  <option value="Out of Stock">Out of Stock</option>
+                </select>
+            </div>
               {/*Map Products */}
               <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6'>
                 {
