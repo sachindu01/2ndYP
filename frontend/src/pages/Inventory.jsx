@@ -4,15 +4,28 @@ import { assets } from '../assets/frontend_assets/assets';
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 import SearchBar from '../components/SearchBar';
+import Pagination from '../components/Pagination';
 
 const Inventory = () => {
 
   const { products,search} = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
-  const [filterProducts,setFilterProducts] = useState([]);
+  const [filterProducts,setFilterProducts] = useState(products);
   const [category,setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [availabilityFilter, setAvailabilityFilter] = useState('All');
+
+  // Pagination 
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
+
+  const indexofLastProduct = currentPage * productsPerPage;
+  const indexofFirstProduct = indexofLastProduct - productsPerPage;
+  const currentProducts = filterProducts.slice(indexofFirstProduct, indexofLastProduct);
+ 
+  const paginate = (pageNumber) => {
+     setCurrentPage(pageNumber);
+  };
 
   const subCategoryOptions = {
     Consumables: ["Resistors", "IC Bases", "LEDs","Wires"],
@@ -82,7 +95,7 @@ const Inventory = () => {
 
   // Function to apply all filters
   const applyFilter = () => {
-    let productsCopy = products.slice();
+    let productsCopy = [...products];
 
     // Apply Search filter
     if(search){
@@ -115,12 +128,14 @@ const Inventory = () => {
       return true;
     });
 
+    // Update the filtered products and reset pagination
     setFilterProducts(productsCopy);
+    setCurrentPage(1);
   };
 
   useEffect(()=>{
     applyFilter();
-  },[category,subCategory,availabilityFilter,search])
+  },[category,subCategory,availabilityFilter,search,products])
 
     // Function to handle availability filter change
     const handleAvailabilityChange = (e) => {
@@ -173,16 +188,26 @@ const Inventory = () => {
               {/*Map Products */}
               <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6'>
                 {
-                  filterProducts.map((item,index)=>(
+                  currentProducts.map((item,index)=>(
                     <ProductItem key={index} name={item.name} image={item.image} available ={item.available} id= {item._id} />
                   ))
                 }
 
               </div>
+              {/* Pagination */}
+              <Pagination
+                productsPerPage={productsPerPage}
+                totalProducts={filterProducts.length}
+                paginate={paginate}
+                activePage={currentPage}
+              />
+      </div>
+
+
 
       </div>
     </div>
-    </div>
+    
   )
 }
 
