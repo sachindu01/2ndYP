@@ -79,20 +79,59 @@ const ShopContextProvider = (props) => {
     setCartItems(cartData);
   };
 
+  useEffect(() => {
+    console.log(cartItems);
+  }, [cartItems]);
+
 
   const getCartCount = () => {
     let totalCount = 0;
-    for (const items in cartItems) {
-      for (const item in cartItems[items]) {
-        try {
-          if (cartItems[items][item] > 0) {
-            totalCount += cartItems[items][item];
+  
+    // Loop through each product in the cart
+    for (const itemId in cartItems) {
+      const product = cartItems[itemId];
+  
+      // If product is an object (has size, color, or both)
+      if (typeof product === 'object') {
+        for (const key in product) {
+          // If the product has both size and color (nested objects)
+          if (typeof product[key] === 'object') {
+            for (const subKey in product[key]) {
+              try {
+                if (product[key][subKey] > 0) {
+                  totalCount += product[key][subKey];
+                }
+              } catch (error) {
+                console.error("Error calculating cart count for size/color:", error);
+              }
+            }
+          } else {
+            // If it has only size or only color (no nesting)
+            try {
+              if (product[key] > 0) {
+                totalCount += product[key];
+              }
+            } catch (error) {
+              console.error("Error calculating cart count for size/color:", error);
+            }
           }
-        } catch (error) {}
+        }
+      } else {
+        // If neither size nor color (just a direct quantity)
+        try {
+          if (product > 0) {
+            totalCount += product;
+          }
+        } catch (error) {
+          console.error("Error calculating cart count for product without size/color:", error);
+        }
       }
     }
+  
     return totalCount;
   };
+  
+  
 
   const updateQuantity = async (itemId, size, quantity) => {
     let cartData = structuredClone(cartItems);

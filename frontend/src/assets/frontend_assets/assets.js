@@ -115,7 +115,7 @@ export const products = [
         image: [w1],
         category: "Consumables",
         subCategory: "Wires",
-        sizes: ["Red", "Black", "White","Orange"],
+        colors: ["Red", "Black", "White","Orange"],
         date: 1716621345448,
         available: true
     },
