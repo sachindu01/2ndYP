@@ -3,7 +3,7 @@ import { ShopContext } from '../context/ShopConext'
 import Title from '../components/Title';
 
 const Dashboard = () => {
-  const {products,currency} = useContext(ShopContext);
+  const {products} = useContext(ShopContext);
 
 
   return (
@@ -21,7 +21,7 @@ const Dashboard = () => {
               <div>
                 <p className='sm:text-base font-medium'>{item.name}</p>
                 <div className='flex items-center gap-3 mt-2 text-base text-gray-700'>
-                  <p className='text-lg'>{currency}{item.price}</p>
+    
                   <p>Quantity:1 </p>
                   <p>Size: M</p>
 
