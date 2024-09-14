@@ -103,25 +103,9 @@ const Product = () => {
         <hr className='mt-8 sm:w-4/5'/>
         <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
           <p>Must be returned within the allocated time period</p>
-          <p>Cash on delivary is available on this product</p>
-          <p>Easy return and exchange policy within 7 days</p>
-
         </div>
         </div>
       </div>
-      {/*Review Section */}
-      <div className='mt-20'>
-          <div className='flex'>
-            <b className='border px-5 py-3 text-sm'>Description</b>
-            <p className='border px-5 py-3 text-sm'>Reviews (122)</p>
-          </div>
-
-          <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500'>
-            <p>Dummy text about description</p>
-            <p>E-commerce sites usually describe </p>
-
-          </div>
-        </div>
 
         {/*----Display related products---- */}
         <RelatedProducts category={productData.category} subcategory={productData.subcategory}/>
