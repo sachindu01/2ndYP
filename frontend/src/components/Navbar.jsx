@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/frontend_assets/assets";
 import { NavLink, Link } from "react-router-dom";
+import { ShopContext } from "../context/ShopConext";
 
 const Navbar = () => {
     const [visible, setVisible] = useState(false);
     const [headerFixed, setHeaderFixed] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
+
+    const {getCartCount} = useContext(ShopContext);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -55,12 +58,12 @@ const Navbar = () => {
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
 
-        <NavLink to="/collection" className="flex flex-col items-center gap-1" >
+        <NavLink to="/dashboard" className="flex flex-col items-center gap-1" >
           <p>DASHBOARD</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
 
-        <NavLink to="/orders" className="flex flex-col items-center gap-1">
+        <NavLink to="/inventory" className="flex flex-col items-center gap-1">
           <p>INVENTORY</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
@@ -84,8 +87,10 @@ const Navbar = () => {
 
           <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 text-gray-500">
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 transition-opacity duration-200 group-hover:opacity-100">
-              <p className="cursor-pointer hover:text-black">Login</p>
-              <p className="cursor-pointer hover:text-black">Logout</p>
+              <Link to="/login"><p className="cursor-pointer hover:text-black">Login</p>
+              </Link>
+              <Link to="/logout"><p className="cursor-pointer hover:text-black">Logout</p>
+              </Link>  
             </div>
           </div>
         </div>
@@ -93,8 +98,8 @@ const Navbar = () => {
 
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} className="w-5 min-w-5" alt="Cart" />
-          <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white rounded-full">
-            
+          <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
+            {getCartCount()}
           </p>
         </Link>
 
