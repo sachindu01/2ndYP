@@ -87,8 +87,10 @@ const Navbar = () => {
 
           <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 text-gray-500">
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 transition-opacity duration-200 group-hover:opacity-100">
-              <p className="cursor-pointer hover:text-black">Login</p>
-              <p className="cursor-pointer hover:text-black">Logout</p>
+              <Link to="/login"><p className="cursor-pointer hover:text-black">Login</p>
+              </Link>
+              <Link to="/logout"><p className="cursor-pointer hover:text-black">Logout</p>
+              </Link>  
             </div>
           </div>
         </div>
