@@ -58,12 +58,12 @@ const Navbar = () => {
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
 
-        <NavLink to="/collection" className="flex flex-col items-center gap-1" >
+        <NavLink to="/dashboard" className="flex flex-col items-center gap-1" >
           <p>DASHBOARD</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
 
-        <NavLink to="/orders" className="flex flex-col items-center gap-1">
+        <NavLink to="/inventory" className="flex flex-col items-center gap-1">
           <p>INVENTORY</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
