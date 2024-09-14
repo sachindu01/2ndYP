@@ -89,6 +89,7 @@ export const products = [
         category: "Consumables",
         subCategory: "LEDs",
         colors: ["Red", "Yellow", "Green", "IR", "Blue"],
+        sizes: ["10pin", "12pin", "14pin"],
         date: 1716621345448,
         available: true
     },
@@ -140,7 +141,6 @@ export const products = [
         image: [EQ1140],
         category: "Equipment",
         subCategory: "Drills",
-        sizes: ["S", "L", "XL"],
         date: 1716623423448,
         available: true
     },
