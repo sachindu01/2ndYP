@@ -102,14 +102,18 @@ const Cart = () => {
                     {productData.name}
                   </p>
                   <div className="flex items-center gap-5 mt-2">
-                    <p className={`px-2 sm-px-3 sm:py-1 border bg-slate-50  ${
-                      item.size ? '' : 'hidden'
-                    }`}>
+                    <p
+                      className={`px-2 sm-px-3 sm:py-1 border bg-slate-50  ${
+                        item.size ? "" : "hidden"
+                      }`}
+                    >
                       {item.size}
                     </p>
-                    <p className={`px-2 sm-px-3 sm:py-1 border bg-slate-50  ${
-                      item.color ? '' : 'hidden'
-                    }`}>
+                    <p
+                      className={`px-2 sm-px-3 sm:py-1 border bg-slate-50  ${
+                        item.color ? "" : "hidden"
+                      }`}
+                    >
                       {item.color}
                     </p>
                   </div>
@@ -118,22 +122,23 @@ const Cart = () => {
               {/* Quantity Input */}
               <div className="flex items-center justify-center">
                 <input
+                  value={item.quantity}
                   onChange={(e) =>
                     e.target.value === "" || e.target.value === "0"
                       ? null
                       : updateQuantity(
                           item._id,
-                          item.size,
+                          item.size || null,
+                          item.color || null,
                           Number(e.target.value)
                         )
                   }
                   className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 transform -translate-y-14"
                   type="number"
                   min={1}
-                  defaultValue={item.quantity}
                 />
                 <img
-                  onClick={() => 
+                  onClick={() =>
                     updateQuantity(
                       item._id,
                       item.size || null,
