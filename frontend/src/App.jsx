@@ -5,14 +5,13 @@ import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import Inventory from "./pages/Inventory";
 import FundForm from "./pages/FundForm";
-
+import InventoryForm from "./pages/InventoryForm";
 
 import About from "./pages/About";
 
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
-
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -25,23 +24,23 @@ const App = () => {
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px=[9vw]">
       <ToastContainer />
       <Navbar />
-      
+
       <Routes>
         <Route path="/" element={<Home />} />
-        
+
         <Route path="/about" element={<About />} />
 
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
 
-  
         <Route path="/dashboard" element={<Dashboard />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/fund-form" element={<FundForm />} />
+        <Route path="/inventory-form" element={<InventoryForm />} />
       </Routes>
       <Footer />
     </div>

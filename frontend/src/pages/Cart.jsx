@@ -162,7 +162,7 @@ const Cart = () => {
           <button
             onClick={() => {
               if (cartData.length>0) {
-                navigate("/dashboard");
+                navigate("/inventory-form");
               } else {
                 toast.error("No products in Cart");
                 return;
