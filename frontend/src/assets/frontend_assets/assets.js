@@ -88,7 +88,7 @@ export const products = [
         image: [l1],
         category: "Consumables",
         subCategory: "LEDs",
-        sizes: ["Red", "Yellow", "Green", "IR", "Blue"],
+        colors: ["Red", "Yellow", "Green", "IR", "Blue"],
         date: 1716621345448,
         available: true
     },

@@ -3,7 +3,6 @@ import { ShopContext } from "../context/ShopConext";
 import { Link } from "react-router-dom";
 
 const ProductItem = ({ id, image, name, available }) => {
-  const { currency } = useContext(ShopContext);
 
   return (
     <Link className="text-gray-700 cursor-pointer" to={`/product/${id}`}>
@@ -16,8 +15,8 @@ const ProductItem = ({ id, image, name, available }) => {
       </div>
       <p className="pt-3 pb-1 text-sm font-medium text-center">{name}</p>
 
-      <p className="text-sm text-center ">
-        {available ? "Available" : "Not Available"}
+      <p className="text-xs text-center ">
+        {available ? "In Stock" : "Out of Stock"}
       </p>
     </Link>
   );
