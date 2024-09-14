@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopConext";
 import Title from "../components/Title";
 import { assets } from "../assets/frontend_assets/assets";
+import { toast } from "react-toastify";
 
 const Cart = () => {
-  const { products, cartItems, updateQuantity, navigate } = useContext(ShopContext);
-    
+  const { products, cartItems, updateQuantity, navigate } =
+    useContext(ShopContext);
+
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
@@ -156,16 +158,21 @@ const Cart = () => {
         })}
       </div>
       <div className="flex justify-center my-20">
-          
-          <div className="w-full text-center">
-            <button
-              onClick={() => navigate("/dashboard")}
-              className="bg-black text-white text-sm my-8 px-8 py-3"
-            >
-              PROCEED TO CHECKOUT
-            </button>
-          </div>
-        
+        <div className="w-full text-center">
+          <button
+            onClick={() => {
+              if (cartData.length>0) {
+                navigate("/dashboard");
+              } else {
+                toast.error("No products in Cart");
+                return;
+              }
+            }}
+            className="bg-black text-white text-sm my-8 px-8 py-3"
+          >
+            PROCEED TO CHECKOUT
+          </button>
+        </div>
       </div>
     </div>
   );
