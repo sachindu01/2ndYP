@@ -18,6 +18,7 @@ import Footer from "./components/Footer";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 const App = () => {
   return (
@@ -31,10 +32,15 @@ const App = () => {
         <Route path="/about" element={<About />} />
 
         <Route path="/product/:productId" element={<Product />} />
-        <Route path="/cart" element={<Cart />} />
+        
         <Route path="/login" element={<Login />} />
 
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* Cart and Dashboard routes are protected */}
+        <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+
+        {/* <Route path="/cart" element={<Cart />} />
+        <Route path="/dashboard" element={<Dashboard />} /> */}
 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/inventory" element={<Inventory />} />
