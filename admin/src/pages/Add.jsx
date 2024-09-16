@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { assets } from "../assets/admin_assets/assets";
 
 const Add = () => {
+
+  const [category,setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
 
   const subCategoryOptions = {
     Consumables: ["Resistors", "IC Bases", "LEDs","Wires"],
@@ -9,7 +12,13 @@ const Add = () => {
     Components: ["Arduino", "Raspberry"],
     Stations: ["Measuring", "Soldering","Assembly"],
   };
-  
+
+   // Get subcategories based on selected category
+   const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+    setSubCategory(""); // Reset subcategory when category changes
+  };
+
   return (
     <form className="flex flex-col w-full item-start gap-3">
       <div>
@@ -71,10 +80,16 @@ const Add = () => {
         />
       </div>
 
+      {/* Product Category and Subcategory */}
       <div className="flex flex-col sm:flex-row gap-2 w-full sm:gap-8">
         <div>
           <p className="mb-2">Product Category</p>
-          <select className="w-full px-3 py-2">
+          <select className="w-full px-3 py-2"
+            value={category}
+            onChange={handleCategoryChange}
+            required
+          >
+            <option value="">Select Category</option>
             <option value="Consumables">Consumables</option>
             <option value="Components">Components</option>
             <option value="Equipment">Equipment</option>
@@ -82,13 +97,22 @@ const Add = () => {
           </select>
         </div>
 
+        {/* Subcategory Dropdown */}
         <div>
           <p className="mb-2">Product Sub Category</p>
-          <select className="w-full px-3 py-2">
-            <option value="Consumables">Consumables</option>
-            <option value="Components">Components</option>
-            <option value="Equipment">Equipment</option>
-            <option value="Stations">Stations</option>
+          <select className="w-full px-3 py-2"
+            value={subCategory}
+            onChange={(e) => setSubCategory(e.target.value)}
+            required
+          >
+            <option value="">Select Sub Category</option>
+            {category &&
+              subCategoryOptions[category].map((sub, index) => (
+                <option key={index} value={sub}>
+                  {sub}
+                </option>
+              ))}
+            
           </select>
         </div>
 
