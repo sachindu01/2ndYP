@@ -7,17 +7,20 @@ import List from "./pages/List";
 import Request from "./pages/Request";
 import { useState } from "react";
 import Login from "./components/Login";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState("cc");
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      <ToastContainer/>
       {token === "" ? (
-        <Login />
+        <Login setToken={setToken} />
       ) : (
         <>
-          <Navbar />
+          <Navbar setToken={setToken} />
           <hr />
           <div className="flex w-full">
             <Sidebar />
