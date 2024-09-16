@@ -3,13 +3,15 @@ import add_icon from './add_icon.png'
 import order_icon from './order_icon.png'
 import upload_area from './upload_area.png'
 import parcel_icon from './parcel_icon.svg'
+import bin_icon from './bin_icon.png'
 
 export const assets = {
     logo,
     add_icon,
     order_icon,
     upload_area,
-    parcel_icon
+    parcel_icon,
+    bin_icon
 }
 
 import r1 from './r1.png'
@@ -38,7 +40,7 @@ export const products = [
         _id: "aaaaa",
         name: "IC Bases",
         description: "Form Factor: DIP - 0.1, Price	: Rs. 8.00",
-        quantity: 100,
+        quantity: 50,
         image: [ic1],
         category: "Consumables",
         subCategory: "IC Bases",
@@ -50,7 +52,7 @@ export const products = [
         _id: "aaaab",
         name: "LEDs",
         description: "Datasheet URL	: [Not Available], Price	: Rs. 2.00",
-        quantity: 200,
+        quantity: 60,
         image: [l1],
         category: "Consumables",
         subCategory: "LEDs",
@@ -63,7 +65,7 @@ export const products = [
         _id: "aaaac",
         name: "Resistors",
         description: "Resistor used to control the current flow",
-        quantity: 220,
+        quantity: 100,
         image: [r1],
         category: "Consumables",
         subCategory: "Resistors",
@@ -75,7 +77,7 @@ export const products = [
         _id: "aaaad",
         name: "Circuit Wires",
         description: "Datasheet URL	: [Not Available],Price	: Rs. 15.00",
-        quantity: 110,
+        quantity: 50,
         image: [w1],
         category: "Consumables",
         subCategory: "Wires",
@@ -87,7 +89,7 @@ export const products = [
         _id: "aaaae",
         name: "Single-core wires",
         description: "Datasheet URL	: [Not Available],Price	: Rs. 10.00",
-        quantity: 130,
+        quantity: 70,
         image: [w2],
         category: "Consumables",
         subCategory: "Wires",
@@ -99,7 +101,7 @@ export const products = [
         _id: "aaaaf",
         name: "Impact Drill",
         description: "Input power: 650W, No-load speed: 0-2700rpm, Max. drilling capacity: 13mm, Variable speed control, Forward/Reverse switch, Hammer function",
-        quantity: 140,
+        quantity: 10,
         image: [EQ1140],
         category: "Equipment",
         subCategory: "Drills",
