@@ -7,6 +7,7 @@ import List from "./pages/List";
 import Request from "./pages/Request";
 import { useState } from "react";
 import Login from "./components/Login";
+import Users from "./pages/Users";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -29,6 +30,7 @@ const App = () => {
                 <Route path="/add" element={<Add />} />
                 <Route path="/list" element={<List />} />
                 <Route path="/request" element={<Request />} />
+                <Route path="/users" element={<Users />} />
               </Routes>
             </div>
           </div>
