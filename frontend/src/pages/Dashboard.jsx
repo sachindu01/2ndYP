@@ -4,7 +4,17 @@ import Title from "../components/Title";
 import { requests, assets } from "../assets/frontend_assets/assets";
 
 const Dashboard = () => {
-  const { products } = useContext(ShopContext);
+  const { products, navigate } = useContext(ShopContext);
+
+  const handleButtonClick = (status, reqId) => {
+    if (status === "Accepted") {
+      // Handle download PDF (dummy logic here)
+      alert(`Downloading PDF for request ${reqId}`);
+    } else if (status === "Declined") {
+      // Navigate to the inventory page
+      navigate("/inventory");
+    }
+  };
 
   return (
     <div className="border-t pt-16">
@@ -52,16 +62,55 @@ const Dashboard = () => {
               <p>Date: {new Date(req.date).toLocaleDateString()}</p>
             </div>
 
+            {/* Status Display */}
             <div>
               <div className="flex items-center gap-2">
-                <p className="min-w-2 h-2 rounded-full bg-green-500"></p>
-                <p className="text-sm md:text-base">Request Accepted</p>
+                {/* Conditionally render based on status */}
+                {req.status === "Accepted" && (
+                  <>
+                    <div className="min-w-2 h-2 rounded-full bg-green-500"></div>
+                    <p className="text-sm md:text-base">Request Accepted</p>
+                  </>
+                )}
+                {req.status === "Declined" && (
+                  <>
+                    <div className="min-w-2 h-2 rounded-full bg-red-500"></div>
+                    <p className="text-sm md:text-base">Request Declined</p>
+                  </>
+                )}
+                {req.status === "Pending" && (
+                  <>
+                    <div className="min-w-2 h-2 rounded-full bg-yellow-500"></div>
+                    <p className="text-sm md:text-base">Pending</p>
+                  </>
+                )}
               </div>
             </div>
 
-            <button className="border py-2 text-sm font-medium rounded-sm">
-              Track Order
-            </button>
+            {/* Conditionally Render Button */}
+            <div>
+              {req.status === "Accepted" && (
+                <button
+                  className="border py-2 px-4 bg-blue-500 text-white font-medium rounded-sm"
+                  onClick={() => handleButtonClick("Accepted", req._id)}
+                >
+                  Download PDF
+                </button>
+              )}
+              {req.status === "Declined" && (
+                <button
+                  className="border py-2 px-4 bg-red-500 text-white font-medium rounded-sm"
+                  onClick={() => handleButtonClick("Declined", req._id)}
+                >
+                  Request Again
+                </button>
+              )}
+              {req.status === "Pending" && (
+                <button className="border py-2 px-4 text-sm font-medium rounded-sm">
+                  Track Order
+                </button>
+              )}
+            </div>
           </div>
         ))}
       </div>

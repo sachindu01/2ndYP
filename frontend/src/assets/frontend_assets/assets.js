@@ -89,7 +89,31 @@ export const requests = [
         phone: "081-4387222",
       },
       date: 1716634345448, // Example timestamp
-      status: "Pending", // Add status for select dropdown
+      status: "Accepted", // Add status for select dropdown
+    },
+    {
+      _id: "req2",
+      items: [
+        {
+          name: "Resistors",
+          quantity: 10,
+          size: null,
+          color: null,
+        },
+        {
+          name: "Wires",
+          quantity: 5,
+          size: "5m",
+          color: "Black",
+        },
+      ],
+      address: {
+        firstName: "Jane",
+        lastName: "Smith",
+        phone: "071-4547987",
+      },
+      date: 1716634345450,
+      status: "Declined",
     },
     {
       _id: "req2",
