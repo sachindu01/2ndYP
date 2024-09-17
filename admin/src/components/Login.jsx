@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import { toast } from "react-toastify";
 
 const Login = ({setToken}) => {
 
@@ -10,7 +11,12 @@ const Login = ({setToken}) => {
     const onSubmitHandler = async (e) => {
         try {
             e.preventDefault();
-            setToken("token");
+            if((email === "admin@email.com") && password === "123456"){
+              setToken("token");
+            }
+            else{
+              toast.error("provide valid email");
+            }
             
             // make the API call here
             // const respone = await axios.post(backendUrl + '/api/user/admin', {email,password});
