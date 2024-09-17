@@ -39,6 +39,7 @@ import uni_logo from './uni_logo.png'
 import uni_logo1 from './uni_logo1.png'
 import fund_icon from './fund.png'
 import inventory_icon from './inventory.png'
+import parcel_icon from './parcel_icon.svg'
 
 export const assets = {
     logo,
@@ -61,8 +62,60 @@ export const assets = {
     cross_icon,
     uni_logo,uni_logo1,
     fund_icon,
-    inventory_icon
+    inventory_icon,
+    parcel_icon
 }
+
+export const requests = [
+    {
+      _id: "req1",
+      items: [
+        {
+          name: "IC Bases",
+          quantity: 2,
+          size: "10pin",
+          color: null,
+        },
+        {
+          name: "LEDs",
+          quantity: 6,
+          size: null,
+          color: "Red",
+        },
+      ],
+      address: {
+        firstName: "John",
+        lastName: "Doe",
+        phone: "081-4387222",
+      },
+      date: 1716634345448, // Example timestamp
+      status: "Pending", // Add status for select dropdown
+    },
+    {
+      _id: "req2",
+      items: [
+        {
+          name: "Resistors",
+          quantity: 10,
+          size: null,
+          color: null,
+        },
+        {
+          name: "Wires",
+          quantity: 5,
+          size: "5m",
+          color: "Black",
+        },
+      ],
+      address: {
+        firstName: "Jane",
+        lastName: "Smith",
+        phone: "071-4547987",
+      },
+      date: 1716634345450,
+      status: "Pending",
+    },
+  ];
 
 export const products = [
     
