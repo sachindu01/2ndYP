@@ -8,7 +8,7 @@ const Navbar = () => {
     const [headerFixed, setHeaderFixed] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
 
-    const {getCartCount} = useContext(ShopContext);
+    const {getCartCount, setToken} = useContext(ShopContext);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -89,7 +89,7 @@ const Navbar = () => {
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 transition-opacity duration-200 group-hover:opacity-100">
               <Link to="/login"><p className="cursor-pointer hover:text-black">Login</p>
               </Link>
-              <Link to="/logout"><p className="cursor-pointer hover:text-black">Logout</p>
+              <Link to="/login" onClick={() => setToken("")}><p className="cursor-pointer hover:text-black">Logout</p>
               </Link>  
             </div>
           </div>

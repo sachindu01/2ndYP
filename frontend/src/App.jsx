@@ -30,23 +30,26 @@ const App = () => {
         <Route path="/" element={<Home />} />
 
         <Route path="/about" element={<About />} />
-
-        <Route path="/product/:productId" element={<Product />} />
         
         <Route path="/login" element={<Login />} />
 
-        {/* Cart and Dashboard routes are protected */}
+        {/* Protected Routes  */}
         <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/fund-form"  element={<PrivateRoute><FundForm /></PrivateRoute>} />
+        <Route path="/inventory-form" element={<PrivateRoute><InventoryForm /></PrivateRoute>} />
+        <Route path="/product/:productId" element={<PrivateRoute><Product /></PrivateRoute>} />
 
         {/* <Route path="/cart" element={<Cart />} />
-        <Route path="/dashboard" element={<Dashboard />} /> */}
-
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/inventory" element={<Inventory />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/fund-form" element={<FundForm />} />
         <Route path="/inventory-form" element={<InventoryForm />} />
+        <Route path="/product/:productId" element={<Product />} /> */}
+
+      
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/contact" element={<Contact />} />
+        
       </Routes>
       <Footer />
     </div>

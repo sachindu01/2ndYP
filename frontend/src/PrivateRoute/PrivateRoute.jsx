@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
+import { ShopContext } from "../context/ShopConext";
 
 const PrivateRoute = ({ children }) => {
-  const user = true; // Replace with actual authentication logic
   const location = useLocation();
+  const {token} = useContext(ShopContext);
 
-  if (user) {
-    return children;
-  }
+  return token === "" ? (
+    <Navigate to="/login" state={{ from: location }} replace />
+  ) : (
+    children
+  );
+}
 
-  return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
-};
-
-export default PrivateRoute;
+export default PrivateRoute
