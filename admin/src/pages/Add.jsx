@@ -17,6 +17,28 @@ const Add = () => {
   const [category,setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
 
+  // Variants
+  const [variants, setVariants] = useState([{ name: "", quantity : "" }]);
+
+   // Handle variant changes
+   const handleVariantChange = (index, field, value) => {
+    const newVariants = [...variants];
+    newVariants[index][field] = value;
+    setVariants(newVariants);
+  };
+
+  // Add new variant field
+  const addVariant = () => {
+    setVariants([...variants, { name: "", quantity: "" }]);
+  };
+
+    // Remove a variant
+    const removeVariant = (index) => {
+      const newVariants = variants.filter((_, i) => i !== index);
+      setVariants(newVariants);
+    };
+
+
   const subCategoryOptions = {
     Consumables: ["Resistors", "IC Bases", "LEDs","Wires"],
     Equipment: ["Drills", "Grinders"],
@@ -43,6 +65,7 @@ const Add = () => {
       formData.append("category",category);
       formData.append("subCategory",subCategory);
       formData.append("colors",JSON.stringify(colors));
+      formData.append("variants", JSON.stringify(variants));
 
       image1 && formData.append("image1",image1)
       image2 && formData.append("image1",image2)
@@ -192,6 +215,33 @@ const Add = () => {
         checked={availability}
         type="checkbox" id='availablity'/>
         <label className="cursor-pointer" htmlFor="availablity"> Available </label>
+      </div>
+
+       {/* Product Variants */}
+       <div className="w-full">
+        <p className="mb-2">Product Variants</p>
+        {variants.map((variant, index) => (
+          <div key={index} className="flex gap-4 mb-2">
+            <input
+              type="text"
+              className="w-1/2 px-3 py-2"
+              placeholder="Variant Name (e.g., 12-pin IC)"
+              value={variant.name}
+              onChange={(e) => handleVariantChange(index, "name", e.target.value)}
+              required
+            />
+            <input
+              type="number"
+              className="w-1/2 px-3 py-2"
+              placeholder="Variant Quantity"
+              value={variant.quantity}
+              onChange={(e) => handleVariantChange(index, "quantity", e.target.value)}
+              required
+            />
+            <button type="button" onClick={() => removeVariant(index)} className="text-red-600">Remove</button>
+          </div>
+        ))}
+        <button type="button" onClick={addVariant} className="bg-gray-300 px-4 py-2">Add Variant</button>
       </div>
 
       <button type="submit" className="w-28 py-3 mt-4 bg-black text-white"> 

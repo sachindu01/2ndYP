@@ -164,7 +164,6 @@ export const products = [
         category: "Consumables",
         subCategory: "LEDs",
         colors: ["Red", "Yellow", "Green", "IR", "Blue"],
-        sizes: ["10pin", "12pin", "14pin"],
         date: 1716621345448,
         available: true
     },

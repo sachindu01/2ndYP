@@ -58,6 +58,7 @@ const Product = () => {
           </p>
 
           <p className='mt-5 mb-5 text-gray-500 md:w-4/5'>{productData.description}</p>
+          <p className='mt-5 mb-5 text-gray-500 md:w-4/5'>Available quantity : {productData.quantity}</p>
 
          {/* Sizes Section (Only show if sizes exist) */}
          {productData.sizes && productData.sizes.length > 0 && (
