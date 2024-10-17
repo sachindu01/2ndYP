@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { assets } from "../assets/admin_assets/assets";
+import axios from 'axios';
+import {backendUrl} from '../App';
+import { toast } from "react-toastify";
 
-const Add = () => {
+const Add = ({token}) => {
 
   const [image1,setImage1] = useState(false);
   const [image2,setImage2] = useState(false);
@@ -11,7 +14,6 @@ const Add = () => {
   const [name,setName] = useState("");
   const [description,setDescription] = useState("");
   const [quantity,setQuantity] = useState("");
-  const [availability,setAvailability] = useState(false);
   const [colors,setColors] = useState([]);
   
   const [category,setCategory] = useState("");
@@ -64,6 +66,7 @@ const Add = () => {
       formData.append("quantity",quantity);
       formData.append("category",category);
       formData.append("subCategory",subCategory);
+      formData.append("availability","true")
       formData.append("colors",JSON.stringify(colors));
       formData.append("variants", JSON.stringify(variants));
 
@@ -71,9 +74,25 @@ const Add = () => {
       image2 && formData.append("image1",image2)
       image3 && formData.append("image1",image3)
       image4 && formData.append("image1",image4)
+
+      const response = await axios.post(backendUrl + "/api/product/add",formData,{headers:{token}});
+
+      if(response.data.success){
+        toast.success(response.data.message);
+        setName('');
+        setDescription('');
+        setImage1(false);
+        setImage2(false);
+        setImage3(false);
+        setImage4(false);
+        setQuantity('');
+      } else {
+        toast.error(response.data.message);
+      }
       
     } catch (error) {
-      
+      console.log(error);
+      toast.error(error.message);
     }
 
   }
@@ -95,7 +114,7 @@ const Add = () => {
           <label htmlFor="image2">
             <img
               className="w-20 cursor-pointer"
-              src={!image1 ? assets.upload_area: URL.createObjectURL(image2)}
+              src={!image2 ? assets.upload_area: URL.createObjectURL(image2)}
               alt=""
             />
             <input onChange={(e)=> setImage2(e.target.files[0])}  type="file" id="image2" hidden />
@@ -103,7 +122,7 @@ const Add = () => {
           <label htmlFor="image3">
             <img
               className="w-20 cursor-pointer"
-              src={!image1 ? assets.upload_area: URL.createObjectURL(image3)}
+              src={!image3 ? assets.upload_area: URL.createObjectURL(image3)}
               alt=""
             />
             <input onChange={(e)=> setImage3(e.target.files[0])} type="file" id="image3" hidden />
@@ -111,7 +130,7 @@ const Add = () => {
           <label htmlFor="image4">
             <img
               className="w-20 cursor-pointer"
-              src={!image1 ? assets.upload_area: URL.createObjectURL(image4)}
+              src={!image4 ? assets.upload_area: URL.createObjectURL(image4)}
               alt=""
             />
             <input onChange={(e)=> setImage4(e.target.files[0])}  type="file" id="image4" hidden />
@@ -195,27 +214,27 @@ const Add = () => {
         <p className="mb-2">Product Color</p>
         <div className="flex gap-3">
           <div onClick={() => setColors(prev => prev.includes("Red") ? prev.filter(item => item !== "Red") : [...prev,"Red"])}>
-            <p className={`${colors.includes("Red") ? "bg-blue-400" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Red</p>
+            <p className={`${colors.includes("Red") ? "bg-yellow-400" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Red</p>
           </div>
          <div onClick={() => setColors(prev => prev.includes("Black") ? prev.filter(item => item !== "Black") : [...prev,"Black"])}>
-            <p className={`${colors.includes("Black") ? "bg-blue-400" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Black</p>
+            <p className={`${colors.includes("Black") ? "bg-yellow-400" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Black</p>
           </div>
           <div onClick={() => setColors(prev => prev.includes("Blue") ? prev.filter(item => item !== "Blue") : [...prev,"Blue"])}>
-            <p className={`${colors.includes("Blue") ? "bg-blue-400" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Blue</p>
+            <p className={`${colors.includes("Blue") ? "bg-yellow-400" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Blue</p>
           </div>
           <div onClick={() => setColors(prev => prev.includes("Green") ? prev.filter(item => item !== "Green") : [...prev,"Green"])}>
-            <p className={`${colors.includes("Green") ? "bg-blue-400" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Green</p>
+            <p className={`${colors.includes("Green") ? "bg-yellow-400" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Green</p>
           </div>
         </div>
       </div>
 
-      <div className="flex gap-2 mt-2">
+      {/* <div className="flex gap-2 mt-2">
         <input 
         onChange={() => setAvailability(prev => !prev)}
         checked={availability}
         type="checkbox" id='availablity'/>
         <label className="cursor-pointer" htmlFor="availablity"> Available </label>
-      </div>
+      </div> */}
 
        {/* Product Variants */}
        <div className="w-full">
@@ -228,7 +247,6 @@ const Add = () => {
               placeholder="Variant Name (e.g., 12-pin IC)"
               value={variant.name}
               onChange={(e) => handleVariantChange(index, "name", e.target.value)}
-              required
             />
             <input
               type="number"
@@ -236,7 +254,6 @@ const Add = () => {
               placeholder="Variant Quantity"
               value={variant.quantity}
               onChange={(e) => handleVariantChange(index, "quantity", e.target.value)}
-              required
             />
             <button type="button" onClick={() => removeVariant(index)} className="text-red-600">Remove</button>
           </div>
