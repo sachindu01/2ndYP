@@ -50,7 +50,7 @@ const Product = () => {
           <h1 className='font-medium text-2xl mt-2'>{productData.name}</h1>
 
           <p className="mt-5 text-3xl font-medium text-sm">
-            {productData.available ? (
+            {productData.availability? (
               <span className='text-green-600'>IN STOCK</span>
             ) : (
               <span className='text-red-500'>OUT OF STOCK</span>
