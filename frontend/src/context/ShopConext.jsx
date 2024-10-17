@@ -32,7 +32,7 @@ const ShopContextProvider = (props) => {
       try {
         await axios.post(
           backendUrl + "/api/cart/add",
-          { itemId},
+          { itemId },
           { headers: { token } }
         );
       } catch (error) {
@@ -48,123 +48,37 @@ const ShopContextProvider = (props) => {
 
   const getCartCount = () => {
     let totalCount = 0;
-
-    // Loop through each product in the cart
-    for (const itemId in cartItems) {
-      const product = cartItems[itemId];
-
-      // If product is an object (has size, color, or both)
-      if (typeof product === "object") {
-        for (const key in product) {
-          // If the product has both size and color (nested objects)
-          if (typeof product[key] === "object") {
-            for (const subKey in product[key]) {
-              try {
-                if (product[key][subKey] > 0) {
-                  totalCount += product[key][subKey];
-                }
-              } catch (error) {
-                console.error(
-                  "Error calculating cart count for size/color:",
-                  error
-                );
-              }
-            }
-          } else {
-            // If it has only size or only color (no nesting)
-            try {
-              if (product[key] > 0) {
-                totalCount += product[key];
-              }
-            } catch (error) {
-              console.error(
-                "Error calculating cart count for size/color:",
-                error
-              );
-            }
-          }
+    for (const item in cartItems) {
+      try {
+        if (cartItems[item] > 0) {
+          totalCount += cartItems[item];
         }
-      } else {
-        // If neither size nor color (just a direct quantity)
-        try {
-          if (product > 0) {
-            totalCount += product;
-          }
-        } catch (error) {
-          console.error(
-            "Error calculating cart count for product without size/color:",
-            error
-          );
-        }
+      } catch (error) {
+        console.error(error);
       }
     }
-
     return totalCount;
   };
 
-  const updateQuantity = async (itemId, size, color, quantity) => {
+  const updateQuantity = async (itemId, quantity) => {
     let cartData = structuredClone(cartItems);
 
-    // If the product has both size and color
-    if (size && color) {
-      if (cartData[itemId]?.[size]?.[color]) {
-        if (quantity === 0) {
-          delete cartData[itemId][size][color];
-          // Remove the size if no colors remain
-          if (Object.keys(cartData[itemId][size]).length === 0) {
-            delete cartData[itemId][size];
-          }
-          // Remove the item if no sizes remain
-          if (Object.keys(cartData[itemId]).length === 0) {
-            delete cartData[itemId];
-          }
-        } else {
-          cartData[itemId][size][color] = quantity;
-        }
-      }
-    }
-
-    // If the product has only size
-    else if (size) {
-      if (cartData[itemId]?.[size]) {
-        if (quantity === 0) {
-          delete cartData[itemId][size];
-          // If no sizes remain, delete the item
-          if (Object.keys(cartData[itemId]).length === 0) {
-            delete cartData[itemId];
-          }
-        } else {
-          cartData[itemId][size] = quantity;
-        }
-      }
-    }
-    // If the product has only color
-    else if (color) {
-      if (cartData[itemId]?.[color]) {
-        if (quantity === 0) {
-          delete cartData[itemId][color];
-          // If no colors remain, delete the item
-          if (Object.keys(cartData[itemId]).length === 0) {
-            delete cartData[itemId];
-          }
-        } else {
-          cartData[itemId][color] = quantity;
-        }
-      }
-    }
-
-    // If the product has neither size nor color
-    else {
-      if (cartData[itemId]) {
-        if (quantity === 0) {
-          delete cartData[itemId];
-        } else {
-          cartData[itemId] = quantity;
-        }
-      }
-    }
+    cartData[itemId] = quantity;
 
     setCartItems(cartData);
+
+    if (token) {
+      try {
+        await axios.post(
+          backendUrl + "/api/cart/update",
+          { itemId, quantity },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   };
 
   const getProductsData = async () => {
@@ -180,6 +94,25 @@ const ShopContextProvider = (props) => {
       toast.error(error.message);
     }
   };
+
+  const getUserCart = async (token) => {
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/cart/get",
+        {},
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        setCartItems(response.data.cartData);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     getProductsData();
   }, []);
@@ -187,6 +120,7 @@ const ShopContextProvider = (props) => {
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
+      getUserCart(localStorage.getItem("token"))
     }
   }, []);
 
