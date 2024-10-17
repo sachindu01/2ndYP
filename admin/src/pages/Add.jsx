@@ -14,7 +14,7 @@ const Add = ({token}) => {
   const [name,setName] = useState("");
   const [description,setDescription] = useState("");
   const [quantity,setQuantity] = useState("");
-  const [colors,setColors] = useState([]);
+  // const [colors,setColors] = useState([]);
   
   const [category,setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
@@ -67,7 +67,7 @@ const Add = ({token}) => {
       formData.append("category",category);
       formData.append("subCategory",subCategory);
       formData.append("availability","true")
-      formData.append("colors",JSON.stringify(colors));
+      // formData.append("colors",JSON.stringify(colors));
       formData.append("variants", JSON.stringify(variants));
 
       image1 && formData.append("image1",image1)
@@ -210,7 +210,7 @@ const Add = ({token}) => {
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <p className="mb-2">Product Color</p>
         <div className="flex gap-3">
           <div onClick={() => setColors(prev => prev.includes("Red") ? prev.filter(item => item !== "Red") : [...prev,"Red"])}>
@@ -226,7 +226,7 @@ const Add = ({token}) => {
             <p className={`${colors.includes("Green") ? "bg-yellow-400" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Green</p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* <div className="flex gap-2 mt-2">
         <input 
