@@ -9,8 +9,7 @@ const Product = () => {
   const { products,addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('')
-  const [size,setSize] = useState('')
-  const [color, setColor] = useState('');
+  
 
   const fetchProductData = () => {
     products.map((item) => {
@@ -60,27 +59,8 @@ const Product = () => {
           <p className='mt-5 mb-5 text-gray-500 md:w-4/5'>{productData.description}</p>
           <p className='mt-5 mb-5 text-gray-500 md:w-4/5'>Available quantity : {productData.quantity}</p>
 
-         {/* Sizes Section (Only show if sizes exist) */}
-         {productData.sizes && productData.sizes.length > 0 && (
-            <div className='flex flex-col gap-4 my-8'>
-              <p>Select Size</p>
-              <div className='flex gap-2'>
-                {productData.sizes.map((item, index) => (
-                  <button
-                    onClick={() => setSize(item)}
-                    className={`border py-2 px-4 bg-gray-100 ${
-                      item === size ? 'border-orange-500' : ''
-                    }`}
-                    key={index}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
 
-           {/* Colors Section (Only show if colors exist) */}
+           {/* Colors Section (Only show if colors exist)
            {productData.colors && productData.colors.length > 0 && (
             <div className='flex flex-col gap-4 my-8'>
               <p>Select Color</p>
@@ -98,9 +78,9 @@ const Product = () => {
                 ))}
               </div>
             </div>
-          )}
+          )} */}
 
-        <button onClick={()=>addToCart(productData._id,size,color)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>ADD TO CART</button>
+        <button onClick={()=>addToCart(productData._id)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>ADD TO CART</button>
         <hr className='mt-8 sm:w-4/5'/>
         <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
           <p>Must be returned within the allocated time period</p>
