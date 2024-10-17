@@ -206,6 +206,8 @@ const Add = ({token}) => {
             className="w-full px-3 py-2 sm:w-[120px]"
             type="Number"
             placeholder="1"
+            min="1"
+            required
           />
         </div>
       </div>
