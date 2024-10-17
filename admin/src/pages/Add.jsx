@@ -19,26 +19,26 @@ const Add = ({token}) => {
   const [category,setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
 
-  // Variants
-  const [variants, setVariants] = useState([{ name: "", quantity : "" }]);
+  // // Variants
+  // const [variants, setVariants] = useState([{ name: "", quantity : "" }]);
 
-   // Handle variant changes
-   const handleVariantChange = (index, field, value) => {
-    const newVariants = [...variants];
-    newVariants[index][field] = value;
-    setVariants(newVariants);
-  };
+  //  // Handle variant changes
+  //  const handleVariantChange = (index, field, value) => {
+  //   const newVariants = [...variants];
+  //   newVariants[index][field] = value;
+  //   setVariants(newVariants);
+  // };
 
-  // Add new variant field
-  const addVariant = () => {
-    setVariants([...variants, { name: "", quantity: "" }]);
-  };
+  // // Add new variant field
+  // const addVariant = () => {
+  //   setVariants([...variants, { name: "", quantity: "" }]);
+  // };
 
-    // Remove a variant
-    const removeVariant = (index) => {
-      const newVariants = variants.filter((_, i) => i !== index);
-      setVariants(newVariants);
-    };
+  //   // Remove a variant
+  //   const removeVariant = (index) => {
+  //     const newVariants = variants.filter((_, i) => i !== index);
+  //     setVariants(newVariants);
+  //   };
 
 
   const subCategoryOptions = {
@@ -68,7 +68,7 @@ const Add = ({token}) => {
       formData.append("subCategory",subCategory);
       formData.append("availability","true")
       // formData.append("colors",JSON.stringify(colors));
-      formData.append("variants", JSON.stringify(variants));
+      // formData.append("variants", JSON.stringify(variants));
 
       image1 && formData.append("image1",image1)
       image2 && formData.append("image1",image2)
@@ -236,7 +236,7 @@ const Add = ({token}) => {
         <label className="cursor-pointer" htmlFor="availablity"> Available </label>
       </div> */}
 
-       {/* Product Variants */}
+       {/* Product Variants
        <div className="w-full">
         <p className="mb-2">Product Variants</p>
         {variants.map((variant, index) => (
@@ -259,7 +259,7 @@ const Add = ({token}) => {
           </div>
         ))}
         <button type="button" onClick={addVariant} className="bg-gray-300 px-4 py-2">Add Variant</button>
-      </div>
+      </div> */}
 
       <button type="submit" className="w-28 py-3 mt-4 bg-black text-white"> 
         ADD
