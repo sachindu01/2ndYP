@@ -3,7 +3,7 @@ import React from 'react';
 const AboutProject= () => {
   return (
     <div className="formSection">
-        <p class="contact-info-title">About Project</p>
+        <p className="contact-info-title">About Project</p>
       <div className="form-row">
         <div className="form-label">
           <label htmlFor="projectname">Project Title</label>

@@ -4,9 +4,9 @@ import React from 'react';
 const Approval= () => {
   return (
     <div className="formSection">
-        <p class="contact-info-title">Approval of the Project</p>
+        <p className="contact-info-title">Approval of the Project</p>
 
-        <p class="contact-info-lecturer">Information about the Lecture In-charge</p>
+        <p className="contact-info-lecturer">Information about the Lecture In-charge</p>
         
       <div className="form-row">
         <div className="form-label">

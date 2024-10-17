@@ -28,7 +28,7 @@ const RequestFunds  = () => {
 
     return (
       <div className='bodyContainer'>
-        <p class="application-form-title">Application Form</p>
+        <p className="application-form-title">Application Form</p>
         <div className="stepperContainer">
            <Stepper currentStep={currentStep} steps={steps} complete={complete}/>
         </div>

@@ -4,7 +4,7 @@ import React from 'react';
 const ContactInfo= () => {
   return (
     <div className="formSection">
-      <p class="contact-info-title">Contact Information</p>
+      <p className="contact-info-title">Contact Information</p>
       <div className="form-row">
         <div className="form-label">
           <label htmlFor="name">Full names of the Applicants</label>
