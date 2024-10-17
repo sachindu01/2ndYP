@@ -1,20 +1,19 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
-
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [search, setSearch] = useState("");
   const [cartItems, setCartItems] = useState({});
   const navigate = useNavigate();
 
-  const [products,setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  const [token,setToken] = useState("");
+  const [token, setToken] = useState("");
 
   const addToCart = async (itemId, size, color) => {
     // Find the product by its ID
@@ -210,37 +209,40 @@ const ShopContextProvider = (props) => {
 
   const getProductsData = async () => {
     try {
-        const response = await axios.get(backendUrl + '/api/product/list')
-        if(response.data.success){
-            setProducts(response.data.products)
-        } else{
-            toast.error(response.data.message);
-        }
-        
+      const response = await axios.get(backendUrl + "/api/product/list");
+      if (response.data.success) {
+        setProducts(response.data.products);
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
-        console.log(error);
-        toast.error(error.message);
-        
+      console.log(error);
+      toast.error(error.message);
     }
-}
-useEffect(() => {
-    getProductsData()
-},[])
+  };
+  useEffect(() => {
+    getProductsData();
+  }, []);
 
-
-
+  useEffect(() => {
+    if (!token && localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
+    }
+  }, []);
 
   const value = {
     products,
     search,
     setSearch,
     cartItems,
+    setCartItems,
     addToCart,
     getCartCount,
     updateQuantity,
     navigate,
-    token,setToken,
-    backendUrl
+    token,
+    setToken,
+    backendUrl,
   };
 
   return (
