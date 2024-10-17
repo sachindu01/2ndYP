@@ -12,6 +12,7 @@ const ShopContextProvider = (props) => {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [token, setToken] = useState("");
 
@@ -122,6 +123,7 @@ const ShopContextProvider = (props) => {
       setToken(localStorage.getItem("token"));
       getUserCart(localStorage.getItem("token"))
     }
+    setLoading(false);
   }, []);
 
   const value = {
@@ -137,6 +139,7 @@ const ShopContextProvider = (props) => {
     token,
     setToken,
     backendUrl,
+    loading,
   };
 
   return (
