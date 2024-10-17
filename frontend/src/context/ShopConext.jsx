@@ -15,71 +15,31 @@ const ShopContextProvider = (props) => {
 
   const [token, setToken] = useState("");
 
-  const addToCart = async (itemId, size, color) => {
-    // Find the product by its ID
-    const product = products.find((item) => item._id === itemId);
-
-    // Check if the product requires size or color selection
-    if (product.sizes && product.sizes.length > 0 && !size) {
-      toast.error("Please select a size");
-      return;
-    }
-
-    if (product.colors && product.colors.length > 0 && !color) {
-      toast.error("Please select a color");
-      return;
-    }
-
+  const addToCart = async (itemId) => {
     let cartData = structuredClone(cartItems);
 
     // Check if the product already exists in the cart
     if (cartData[itemId]) {
-      // If the product has both size and color, store them accordingly
-      if (size && color) {
-        if (cartData[itemId][size]) {
-          if (cartData[itemId][size][color]) {
-            cartData[itemId][size][color] += 1;
-          } else {
-            cartData[itemId][size][color] = 1;
-          }
-        } else {
-          cartData[itemId][size] = { [color]: 1 };
-        }
-      }
-      // If the product only has size
-      else if (size) {
-        if (cartData[itemId][size]) {
-          cartData[itemId][size] += 1;
-        } else {
-          cartData[itemId][size] = 1;
-        }
-      }
-      // If the product only has color
-      else if (color) {
-        if (cartData[itemId][color]) {
-          cartData[itemId][color] += 1;
-        } else {
-          cartData[itemId][color] = 1;
-        }
-      } else {
-        // If neither size nor color is required, just increment the quantity
-        cartData[itemId] += 1;
-      }
+      cartData[itemId] += 1;
     } else {
-      // Add a new product to the cart
-      if (size && color) {
-        cartData[itemId] = { [size]: { [color]: 1 } };
-      } else if (size) {
-        cartData[itemId] = { [size]: 1 };
-      } else if (color) {
-        cartData[itemId] = { [color]: 1 };
-      } else {
-        cartData[itemId] = 1; // No size or color required
-      }
+      cartData[itemId] = 1;
     }
 
     // Update the cart items state
     setCartItems(cartData);
+
+    if (token) {
+      try {
+        await axios.post(
+          backendUrl + "/api/cart/add",
+          { itemId},
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   };
 
   useEffect(() => {
