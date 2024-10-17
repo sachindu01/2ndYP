@@ -1,7 +1,49 @@
-import React from "react";
-import { products,assets } from "../assets/admin_assets/assets";
+import React, { useState, useEffect } from "react";
+import { assets } from "../assets/admin_assets/assets";
+import axios from 'axios';
+import {backendUrl} from '../App';
+import { toast } from "react-toastify";
 
-const List = () => {
+const List = ({token}) => {
+
+  
+  const [list,setList] = useState([])
+
+  const fetchlist = async () => {
+    try {
+      const response = await axios.get(backendUrl + '/api/product/list')
+      if (response.data.success) {
+        setList(response.data.products);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  }
+
+  const removeProduct = async (id) => {
+
+    try {
+      
+      const response = await axios.post(backendUrl + '/api/product/remove',{id}, {headers:{token}});
+      if(response.data.success){
+        toast.success(response.data.message);
+        await fetchlist();
+      } else{
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchlist()
+  },[])
+
   return (
     <>
       <p className="mb-2">All Products List</p>
@@ -19,7 +61,7 @@ const List = () => {
 
         {/* ------- Products List ---------*/}
 
-        {products.map((product, index) => (
+        {list.map((product, index) => (
           <div
             className="grid grid-cols-[1fr_2fr_1fr] md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr] items-center gap-2 py-1 px-2 border text-sm"
             key={index}
@@ -31,6 +73,7 @@ const List = () => {
             <p>{product.quantity}</p>
             <div className="flex justify-center items-center">
           <img
+              onClick={() => removeProduct(product._id)}
               className="w-4 mr-4 sm:w-5 cursor-pointer"
               src={assets.bin_icon}
               alt=""
