@@ -1,16 +1,43 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopConext";
 import Title from "../components/Title";
-import { requests, assets } from "../assets/frontend_assets/assets";
+import { assets } from "../assets/frontend_assets/assets";
+import axios from "axios";
 
 const Dashboard = () => {
-  const { products, navigate } = useContext(ShopContext);
+  const { backendUrl, token, navigate } = useContext(ShopContext);
+
+  const [requests, setRequests] = useState([]);
+
+  const loadOrderData = async () => {
+    try {
+      if (!token) {
+        return null;
+      }
+
+      const response = await axios.post(
+        backendUrl + "/api/order/userorders",
+        {},
+        { headers: { token } }
+      );
+
+      if (response.data.success) {
+        setRequests(response.data.orders);
+      }
+    } catch (error) {}
+  };
+
+  console.log(requests);
+
+  useEffect(() => {
+    loadOrderData();
+  }, [token]);
 
   const handleButtonClick = (status, reqId) => {
-    if (status === "Accepted") {
+    if (status === "accepted") {
       // Handle download PDF (dummy logic here)
       alert(`Downloading PDF for request ${reqId}`);
-    } else if (status === "Declined") {
+    } else if (status === "declined") {
       // Navigate to the inventory page
       navigate("/inventory");
     }
@@ -33,52 +60,43 @@ const Dashboard = () => {
             <div>
               <div>
                 {req.items.map((item, index) => {
-                  if (index === req.items.length - 1) {
-                    return (
-                      <p className="py-0.5" key={index}>
-                        {item.name} X {item.quantity}{" "}
-                        <span>
-                          {item.size} {item.color}
-                        </span>
-                      </p>
-                    );
-                  } else {
-                    return (
-                      <p className="py-0.5" key={index}>
-                        {item.name} X {item.quantity}{" "}
-                        <span>
-                          {item.size} {item.color}
-                        </span>
-                        ,
-                      </p>
-                    );
-                  }
+                  return (
+                    // <p className="py-1" key={index}>
+                    //   {item.name} X {item.quantity}{" "}
+                    // </p>
+                    <div className="flex items-center py-0.5" key={index}>
+                      <p className="text-gray-700 mr-4">{item.name}</p>
+                      <span className=" font-bold px-3 ">
+                        x {item.quantity}
+                      </span>
+                    </div>
+                  );
                 })}
               </div>
             </div>
 
             <div>
               <p>Items: {req.items.length}</p>
-              <p>Date: {new Date(req.date).toLocaleDateString()}</p>
+              <p>Date: {new Date(req.date).toDateString()}</p>
             </div>
 
             {/* Status Display */}
             <div>
               <div className="flex items-center gap-2">
                 {/* Conditionally render based on status */}
-                {req.status === "Accepted" && (
+                {req.status === "accepted" && (
                   <>
                     <div className="min-w-2 h-2 rounded-full bg-green-500"></div>
                     <p className="text-sm md:text-base">Request Accepted</p>
                   </>
                 )}
-                {req.status === "Declined" && (
+                {req.status === "declined" && (
                   <>
                     <div className="min-w-2 h-2 rounded-full bg-red-500"></div>
                     <p className="text-sm md:text-base">Request Declined</p>
                   </>
                 )}
-                {req.status === "Pending" && (
+                {req.status === "pending" && (
                   <>
                     <div className="min-w-2 h-2 rounded-full bg-yellow-500"></div>
                     <p className="text-sm md:text-base">Pending</p>
@@ -89,24 +107,27 @@ const Dashboard = () => {
 
             {/* Conditionally Render Button */}
             <div>
-              {req.status === "Accepted" && (
+              {req.status === "accepted" && (
                 <button
                   className="border py-2 px-4 bg-blue-500 text-white font-medium rounded-sm"
-                  onClick={() => handleButtonClick("Accepted", req._id)}
+                  onClick={() => handleButtonClick("accepted", req._id)}
                 >
                   Download PDF
                 </button>
               )}
-              {req.status === "Declined" && (
+              {req.status === "declined" && (
                 <button
                   className="border py-2 px-4 bg-red-500 text-white font-medium rounded-sm"
-                  onClick={() => handleButtonClick("Declined", req._id)}
+                  onClick={() => handleButtonClick("declined", req._id)}
                 >
                   Request Again
                 </button>
               )}
-              {req.status === "Pending" && (
-                <button className="border py-2 px-4 text-sm font-medium rounded-sm">
+              {req.status === "pending" && (
+                <button
+                  onClick={loadOrderData}
+                  className="border py-2 px-4 text-sm font-medium rounded-sm"
+                >
                   Track Order
                 </button>
               )}
