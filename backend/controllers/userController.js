@@ -152,20 +152,18 @@ const getUserById = async (req, res) => {
 
 // Delete user
 const deleteUser = async (req, res) => {
-    res.send("api working delelte")
-    // console.log("Delete request received for ID:", req.params.id);
-    // const { id } = req.params;
+    const { userId } = req.body;
 
-    // try {
-    //     const user = await userModel.findByIdAndDelete(id);
-    //     if (!user) {
-    //         return res.status(404).json({ success: false, message: 'User not found' });
-    //     }
-    //     res.json({ success: true, message: 'User deleted successfully' });
-    // } catch (error) {
-    //     console.error(error);
-    //     res.status(500).json({ success: false, message: 'Error deleting user' });
-    // }
+    try {
+        const user = await userModel.findByIdAndDelete(userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        res.json({ success: true, message: 'User deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Error deleting user' });
+    }
 };
 
 // Update user role
@@ -179,7 +177,7 @@ const changeUserRole = async (req, res) => {
         if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ success: false, message: 'Invalid or missing userId' });
         }
-        
+
         await userModel.findByIdAndUpdate(userId, {userRole})
         res.json({success: true, message: 'Role updated successfully'})
 

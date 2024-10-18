@@ -11,12 +11,6 @@ userRouter.post('/admin',adminLogin)
 userRouter.post('/all',adminAuth, getAllUsers);
 userRouter.post('/userid',adminAuth, getUserById);
 userRouter.post('/role/userid',adminAuth, changeUserRole);
-
-userRouter.delete('/userid', deleteUser); 
-
-
-
- 
-
+userRouter.post('/delete',adminAuth, deleteUser); 
 
 export default userRouter;
