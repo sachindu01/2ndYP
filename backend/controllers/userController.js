@@ -3,6 +3,7 @@ import userModel from "../models/userModel.js";
 import validator from "validator";
 import jwt from 'jsonwebtoken'
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 
 const createToken = (id) =>{           
@@ -130,24 +131,23 @@ const getAllUsers = async (req, res) => {
 
 // Get user by ID
 const getUserById = async (req, res) => {
-    res.send("api working getuserbyid")
-    // try {
-    //     const userId = req.params.id; // Get the user ID from request parameters
-    //     console.log("Fetching user with ID:", userId); // Log the ID being fetched
-
-    //     // Convert to ObjectId and find the user
-    //     const user = await userModel.findById(new mongoose.Types.ObjectId(userId), 'name email role');
+    
+    try {
+        const {userId} = req.body; 
         
-    //     if (!user) {
-    //         console.log("User not found in the database.");
-    //         return res.status(404).json({ success: false, message: 'User not found' });
-    //     }
+        const user = await userModel.findById(new mongoose.Types.ObjectId(userId), 'name email userRole');
+        
+        if (!user) {
+            console.log("User not found in the database.");
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
 
-    //     res.json({ success: true, user });
-    // } catch (error) {
-    //     console.error("Error fetching user:", error);
-    //     res.status(500).json({ success: false, message: error.message });
-    // }
+        res.json({ success: true, user });
+
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({ success: false, message: error.message });
+    }
 };
 
 // Delete user
