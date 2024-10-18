@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const orderSchema = new mongoose.Schema({
+const inventoryReqSchema = new mongoose.Schema({
     userId: {type: String, required: true},
     items: {type: Array, required: true},
     status: {type: String, required: true, default: 'pending'},
@@ -10,5 +10,5 @@ const orderSchema = new mongoose.Schema({
     
 })
 
-const orderModel = mongoose.model.order || mongoose.model('order', orderSchema)
-export default orderModel;
+const inventoryReqModel = mongoose.model.inventoryReq || mongoose.model('inventoryReq', inventoryReqSchema)
+export default inventoryReqModel;

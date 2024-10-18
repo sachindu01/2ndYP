@@ -1,4 +1,4 @@
-import orderModel from "../models/orderModel.js";
+import inventoryReqModel from "../models/inventoryReqModel.js";
 import userModel from "../models/userModel.js";
 
 // Placing orders 
@@ -15,7 +15,7 @@ const placeOrder = async (req, res) => {
             date: Date.now()
         }
 
-        const newOrder = new orderModel(orderData)
+        const newOrder = new inventoryReqModel(orderData)
         await newOrder.save()
 
         await userModel.findByIdAndUpdate(userId, {cartData: {}})
@@ -38,7 +38,7 @@ const placeOrder = async (req, res) => {
 const allOrders = async (req, res) => {
     try {
 
-        const orders = await orderModel.find({})
+        const orders = await inventoryReqModel.find({})
         res.json({success: true, orders})
         
     } catch (error) {
@@ -57,7 +57,7 @@ const userOrders = async (req, res) => {
 
     try {
         const {userId} = req.body;
-        const orders = await orderModel.find({userId})
+        const orders = await inventoryReqModel.find({userId})
         res.json({success: true, orders})
         
     } catch (error) {
@@ -73,7 +73,7 @@ const updateStatus = async (req, res) => {
     try {
         
         const {orderId, status} = req.body
-        await orderModel.findByIdAndUpdate(orderId, {status})
+        await inventoryReqModel.findByIdAndUpdate(orderId, {status})
         res.json({success: true, message: 'Status updated successfully'})
 
     } catch (error) {
@@ -89,7 +89,7 @@ const getOrderDetails = async (req, res) => {
     const { orderId } = req.params; // Get orderId from request parameters
 
     try {
-        const order = await orderModel.findById(orderId).populate('items._id'); // Populate item details if needed
+        const order = await inventoryReqModel.findById(orderId).populate('items._id'); // Populate item details if needed
 
         if (!order) {
             return res.status(404).json({ success: false, message: 'Order not found' });
