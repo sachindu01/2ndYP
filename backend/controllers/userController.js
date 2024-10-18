@@ -135,7 +135,7 @@ const getUserById = async (req, res) => {
     try {
         const {userId} = req.body; 
         
-        const user = await userModel.findById(new mongoose.Types.ObjectId(userId), 'name email userRole');
+        const user = await userModel.findById(userId, 'name email userRole');
         
         if (!user) {
             console.log("User not found in the database.");
@@ -170,24 +170,25 @@ const deleteUser = async (req, res) => {
 
 // Update user role
 const changeUserRole = async (req, res) => {
-    res.send("api working change role")
-    // const { id } = req.params;
-    // const { role } = req.body;
 
-    // try {
-    //     const user = await userModel.findById(id);
-    //     if (!user) {
-    //         return res.status(404).json({ success: false, message: 'User not found' });
-    //     }
+    try {
+        
+        const {userId, userRole} = req.body
 
-    //     user.role = role;
-    //     await user.save();
+        // Check if userId is valid
+        if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ success: false, message: 'Invalid or missing userId' });
+        }
+        
+        await userModel.findByIdAndUpdate(userId, {userRole})
+        res.json({success: true, message: 'Role updated successfully'})
 
-    //     res.json({ success: true, message: 'User role updated', user });
-    // } catch (error) {
-    //     console.error(error);
-    //     res.status(500).json({ success: false, message: 'Error updating user role' });
-    // }
+    } catch (error) {
+        console.log(error);
+        res.json({success: false, message: error.message})
+        
+    }    
+
 };
 
 

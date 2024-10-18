@@ -9,10 +9,14 @@ userRouter.post('/login',loginUser)
 userRouter.post('/admin',adminLogin)
 
 userRouter.post('/all',adminAuth, getAllUsers);
-userRouter.delete('/:id', deleteUser); 
-userRouter.patch('/role/:id', changeUserRole);
+userRouter.post('/userid',adminAuth, getUserById);
+userRouter.post('/role/userid',adminAuth, changeUserRole);
 
-userRouter.get('/:id', getUserById); 
+userRouter.delete('/userid', deleteUser); 
+
+
+
+ 
 
 
 export default userRouter;
