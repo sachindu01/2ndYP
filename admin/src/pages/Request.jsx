@@ -54,7 +54,7 @@ const Request = ({ token }) => {
     fetchAllOrders();
   }, [token]);
 
-  console.log(requests);
+  // console.log(requests);
 
   return (
     <div>

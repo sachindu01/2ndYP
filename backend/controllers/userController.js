@@ -116,6 +116,79 @@ const adminLogin = async (req,res) => {
 
 }
 
+// Get all users
+const getAllUsers = async (req, res) => {
+    
+    try {
+        const users = await userModel.find({}, 'name email userRole');
+        res.json({ success: true, users });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+// Get user by ID
+const getUserById = async (req, res) => {
+    res.send("api working getuserbyid")
+    // try {
+    //     const userId = req.params.id; // Get the user ID from request parameters
+    //     console.log("Fetching user with ID:", userId); // Log the ID being fetched
+
+    //     // Convert to ObjectId and find the user
+    //     const user = await userModel.findById(new mongoose.Types.ObjectId(userId), 'name email role');
+        
+    //     if (!user) {
+    //         console.log("User not found in the database.");
+    //         return res.status(404).json({ success: false, message: 'User not found' });
+    //     }
+
+    //     res.json({ success: true, user });
+    // } catch (error) {
+    //     console.error("Error fetching user:", error);
+    //     res.status(500).json({ success: false, message: error.message });
+    // }
+};
+
+// Delete user
+const deleteUser = async (req, res) => {
+    res.send("api working delelte")
+    // console.log("Delete request received for ID:", req.params.id);
+    // const { id } = req.params;
+
+    // try {
+    //     const user = await userModel.findByIdAndDelete(id);
+    //     if (!user) {
+    //         return res.status(404).json({ success: false, message: 'User not found' });
+    //     }
+    //     res.json({ success: true, message: 'User deleted successfully' });
+    // } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ success: false, message: 'Error deleting user' });
+    // }
+};
+
+// Update user role
+const changeUserRole = async (req, res) => {
+    res.send("api working change role")
+    // const { id } = req.params;
+    // const { role } = req.body;
+
+    // try {
+    //     const user = await userModel.findById(id);
+    //     if (!user) {
+    //         return res.status(404).json({ success: false, message: 'User not found' });
+    //     }
+
+    //     user.role = role;
+    //     await user.save();
+
+    //     res.json({ success: true, message: 'User role updated', user });
+    // } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ success: false, message: 'Error updating user role' });
+    // }
+};
 
 
-export {loginUser,registerUser,adminLogin}
+export {loginUser,registerUser,adminLogin,getAllUsers, getUserById, deleteUser, changeUserRole}
