@@ -5,11 +5,13 @@ import userModel from "../models/userModel.js";
 const placeOrder = async (req, res) => {
     
     try {
-        const {userId,items}=req.body;
+        const {userId,items,userInfo,projectInfo}=req.body;
 
         const orderData = {
             userId,
             items,
+            userInfo,
+            projectInfo,
             date: Date.now()
         }
 
