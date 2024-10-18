@@ -21,9 +21,28 @@ const Request = ({ token }) => {
       );
 
       if (response.data.success) {
-        setRequests(response.data.orders);
+        setRequests(response.data.orders.reverse());
       } else {
         toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    }
+  };
+
+  const statusHandler = async (event, orderId) => {
+    const newStatus = event.target.value; // Get the new status from the event
+
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/order/status",
+        { orderId, status: newStatus },
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        await fetchAllOrders();
+        toast.success("Status updated successfully!");
       }
     } catch (error) {
       toast.error(error.message);
@@ -35,7 +54,7 @@ const Request = ({ token }) => {
     fetchAllOrders();
   }, [token]);
 
-  console.log(requests)
+  console.log(requests);
 
   return (
     <div>
@@ -71,12 +90,15 @@ const Request = ({ token }) => {
               <p>Date: {new Date(req.date).toLocaleDateString()}</p>
             </div>
 
-            <select className="p-2 font-semibold" defaultValue={req.status}>
+            <select
+              value={req.status}
+              className="p-2 font-semibold"
+              onChange={(e)=> statusHandler(e,req._id) }
+            >
               <option value="pending">Pending</option>
               <option value="accepted">Accepted</option>
               <option value="declined">Declined</option>
             </select>
-
           </div>
         ))}
       </div>

@@ -22,7 +22,7 @@ const Dashboard = () => {
       );
 
       if (response.data.success) {
-        setRequests(response.data.orders);
+        setRequests(response.data.orders.reverse());
       }
     } catch (error) {}
   };
