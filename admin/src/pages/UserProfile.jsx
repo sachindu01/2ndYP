@@ -10,10 +10,6 @@ const UserProfile = ({ token }) => {
 
   const navigate = useNavigate();
 
-  // const [loading, setLoading] = useState(true);
-
-  // const [isUpdatingRole, setIsUpdatingRole] = useState(false);
-
   const fetchUser = async () => {
     try {
       const response = await axios.post(
@@ -53,8 +49,10 @@ const UserProfile = ({ token }) => {
   };
 
   const handleDeleteUser = async (userId) => {
-    //  const confirmDelete = window.confirm('Are you sure you want to delete this user?');
-    //   if (!confirmDelete) return;
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this user?"
+    );
+    if (!confirmDelete) return;
 
     try {
       const response = await axios.post(
@@ -77,14 +75,6 @@ const UserProfile = ({ token }) => {
   useEffect(() => {
     fetchUser();
   }, [id]);
-
-  // if (loading) {
-  //   return <p className="text-center text-gray-500">Loading user details...</p>;
-  // }
-
-  // if (error) {
-  //   return <p className="text-center text-red-500">{error}</p>;
-  // }
 
   return user ? (
     <div className="max-w-4xl mx-auto bg-white p-6 shadow-lg rounded-lg">
