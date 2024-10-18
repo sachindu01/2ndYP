@@ -1,9 +1,41 @@
 import React from "react";
-import { useState } from "react";
-import { requests, assets } from "../assets/admin_assets/assets";
+import { useState, useEffect } from "react";
+import { assets } from "../assets/admin_assets/assets";
+import axios from "axios";
+import { backendUrl } from "../App";
+import { toast } from "react-toastify";
 
-const Request = () => {
-  const [request, setRequest] = useState([]);
+const Request = ({ token }) => {
+  const [requests, setRequests] = useState([]);
+
+  const fetchAllOrders = async () => {
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/order/list",
+        {},
+        { headers: { token } }
+      );
+
+      if (response.data.success) {
+        setRequests(response.data.orders);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllOrders();
+  }, [token]);
+
+  console.log(requests)
 
   return (
     <div>
@@ -14,47 +46,37 @@ const Request = () => {
             className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
             key={index}
           >
-            <img className="w-12"
-            src={assets.parcel_icon} alt="" />
+            <img className="w-12" src={assets.parcel_icon} alt="" />
             <div>
               <div>
                 {req.items.map((item, index) => {
-                  if (index === req.items.length - 1) {
-                    return (
-                      <p className="py-0.5" key={index}>
-                        {item.name} X {item.quantity}{" "}
-                        <span>
-                          {item.size} {item.color}
-                        </span>
-                      </p>
-                    );
-                  } else {
-                    return (
-                      <p className="py-0.5" key={index}>
-                        {item.name} X {item.quantity}{" "}
-                        <span>
-                          {item.size} {item.color}
-                        </span>
-                        ,
-                      </p>
-                    );
-                  }
+                  return (
+                    <p className="py-0.5" key={index}>
+                      {item.name} X {item.quantity}{" "}
+                    </p>
+                  );
                 })}
               </div>
             </div>
+
             <div>
-              <p className="mb-2 font-medium">{req.address.firstName + " " + req.address.lastName}</p>
-              <p>{req.address.phone}</p>
+              <p className="mb-2 font-medium">
+                {req.userInfo.firstName + " " + req.userInfo.lastName}
+              </p>
+              <p>{req.userInfo.phone}</p>
             </div>
+
             <div>
               <p>Items: {req.items.length}</p>
               <p>Date: {new Date(req.date).toLocaleDateString()}</p>
             </div>
+
             <select className="p-2 font-semibold" defaultValue={req.status}>
-              <option value="Pending">Pending</option>
-              <option value="Accepted">Accepted</option>
-              <option value="Declined">Declined</option>
+              <option value="pending">Pending</option>
+              <option value="accepted">Accepted</option>
+              <option value="declined">Declined</option>
             </select>
+
           </div>
         ))}
       </div>

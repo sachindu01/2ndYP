@@ -36,6 +36,7 @@ const placeOrder = async (req, res) => {
 
 // All orders data for admin panel
 const allOrders = async (req, res) => {
+    
     try {
 
         const orders = await inventoryReqModel.find({})
@@ -47,8 +48,6 @@ const allOrders = async (req, res) => {
         
     }
     
-    
-
 
 }
 
