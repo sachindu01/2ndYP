@@ -37,16 +37,16 @@ const UserProfile = ({ token }) => {
 
   const handleRoleChange = async (event,userId) => {
     const newRole = event.target.value;
-    
+
     try {
       const response = await axios.post(
-        backendUrl + "/api/order/status",
-        { orderId, status: newStatus },
+        backendUrl + "/api/user/role/userid",
+        { userId, userRole: newRole },
         { headers: { token } }
       );
       if (response.data.success) {
-        await fetchAllOrders();
-        toast.success("Status updated successfully!");
+        await fetchUser();
+        toast.success("Role updated successfully!");
       }
     } catch (error) {
       toast.error(error.message);
