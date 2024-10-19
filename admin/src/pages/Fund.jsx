@@ -32,24 +32,24 @@ const Fund = ({ token }) => {
 
   console.log(fundRequests);
 
-  //   const statusHandler = async (event, requestId) => {
-  //     const newStatus = event.target.value;
+    const statusHandler = async (event, reqId) => {
+      const newStatus = event.target.value;
 
-  //     try {
-  //       const response = await axios.post(
-  //         backendUrl + "/api/fund/status",
-  //         { requestId, status: newStatus },
-  //         { headers: { token } }
-  //       );
-  //       if (response.data.success) {
-  //         await fetchAllFundRequests();
-  //         toast.success("Status updated successfully!");
-  //       }
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //       console.log(error.message);
-  //     }
-  //   };
+      try {
+        const response = await axios.post(
+          backendUrl + "/api/fund/status",
+          { reqId, status: newStatus },
+          { headers: { token } }
+        );
+        if (response.data.success) {
+          await fetchAllFundRequests();
+          toast.success("Status updated successfully!");
+        }
+      } catch (error) {
+        toast.error(error.message);
+        console.log(error.message);
+      }
+    };
 
   useEffect(() => {
     fetchAllFundRequests();
@@ -92,9 +92,9 @@ const Fund = ({ token }) => {
               className="p-2 font-semibold"
               onChange={(e) => statusHandler(e, req._id)}
             >
-              <option value="Pending">Pending</option>
-              <option value="Accepted">Accepted</option>
-              <option value="Declined">Declined</option>
+              <option value="pending">Pending</option>
+              <option value="accepted">Accepted</option>
+              <option value="declined">Declined</option>
             </select>
 
             <button

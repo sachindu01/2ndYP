@@ -105,12 +105,11 @@ const userFundReq = async (req, res) => {
 
 // Update fundReq status from Admin panel
 const updateStatus = async (req, res) => {
-    res.send("Update fundReq status from Admin panel")
 
     try {
         
         const {reqId, status} = req.body
-        await fundReqModel.findByIdAndUpdate(orderId, { status });
+        await fundReqModel.findByIdAndUpdate(reqId, { status });
         res.json({success: true, message: 'Status updated successfully'})
 
     } catch (error) {
