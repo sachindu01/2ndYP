@@ -4,22 +4,22 @@ import AboutProjetc from './aboutProject';
 import Approval from './approval';
 import './form.css';
 
-const ApplicationForm = ({ currentStep }) => {
+const ApplicationForm = ({ currentStep, onFormDataChange, formData }) => {
   return (
     <div>
       {currentStep === 1 && (
         <div>
-          <ContactInfo/>
+          <ContactInfo onFormDataChange={onFormDataChange} formData={formData}/>
         </div>
       )}
       {currentStep === 2 && (
         <div>
-          <AboutProjetc/>
+          <AboutProjetc onFormDataChange={onFormDataChange} formData={formData}/>
         </div>
       )}
       {currentStep === 3 && (
         <div>
-          <Approval/>
+          <Approval onFormDataChange={onFormDataChange} formData={formData}/>
         </div>
       )}
     </div>

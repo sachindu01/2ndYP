@@ -49,7 +49,7 @@ const PlaceInventoryReq = () => {
         }
       }
 
-      console.log(orderItems);
+      // console.log(orderItems);
 
       let orderData = {
         items: orderItems,
@@ -57,7 +57,7 @@ const PlaceInventoryReq = () => {
         projectInfo,
       };
 
-      console.log(orderData);
+      // console.log(orderData);
 
       const response = await axios.post(
         backendUrl + "/api/order/place",
