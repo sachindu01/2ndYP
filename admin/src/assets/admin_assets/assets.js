@@ -6,6 +6,8 @@ import parcel_icon from './parcel_icon.svg'
 import bin_icon from './bin_icon.png'
 import uni_logo from './uni_logo.png'
 import profile_icon from './profile_icon.png'
+import fund_icon from './fund.png'
+import inventory_icon from './exchange_icon.png'
 
 export const assets = {
     logo,
@@ -15,7 +17,9 @@ export const assets = {
     parcel_icon,
     bin_icon,
     uni_logo,
-    profile_icon
+    profile_icon,
+    fund_icon,
+    inventory_icon
 }
 
 
