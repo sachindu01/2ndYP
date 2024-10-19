@@ -7,6 +7,7 @@ import userRouter from './routes/userRoutes.js'
 import productRouter from './routes/productRoutes.js'
 import cartRouter from './routes/cartRoutes.js'
 import inventoryReqRouter from './routes/inventoryReqRoutes.js'
+import fundReqRouter from './routes/fundReqRoutes.js'
 
 // App config
 const app = express()
@@ -25,6 +26,7 @@ app.use('/api/user',userRouter)
 app.use('/api/product',productRouter)
 app.use('/api/cart',cartRouter)
 app.use('/api/order',inventoryReqRouter)
+app.use('/api/fund',fundReqRouter)
 
 
 app.get('/',(req,res)=>{

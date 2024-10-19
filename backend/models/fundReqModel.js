@@ -27,7 +27,7 @@ const fundReqSchema = new mongoose.Schema({
      },   
 
     budgetDetails: { type: String, required: true },
-    status: { type: String, default: 'Pending' },
+    status: { type: String, default: 'pending' },
     date: { type: Number, required: true }
 })
 
