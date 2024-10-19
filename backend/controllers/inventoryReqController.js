@@ -10,8 +10,20 @@ const placeOrder = async (req, res) => {
         const orderData = {
             userId,
             items,
-            userInfo,
-            projectInfo,
+    
+            userInfo: {
+                firstName: userInfo.firstName,
+                lastName: userInfo.lastName,
+                email: userInfo.email,
+                phone: userInfo.phone,
+            },
+
+            projectInfo: {
+                projectName: projectInfo.projectName,
+                projectDescription: projectInfo.projectDescription,
+                projectTimeline: projectInfo.projectTimeline,
+            },
+        
             date: Date.now()
         }
 

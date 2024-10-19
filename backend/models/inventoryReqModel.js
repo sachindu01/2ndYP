@@ -4,8 +4,20 @@ const inventoryReqSchema = new mongoose.Schema({
     userId: {type: String, required: true},
     items: {type: Array, required: true},
     status: {type: String, required: true, default: 'pending'},
-    userInfo: {type: Object, required: true},
-    projectInfo: {type: Object, required: true},
+    
+    userInfo: {
+        firstName: { type: String, required: true },
+        lastName: { type: String, required: true },
+        email: { type: String, required: true },
+        phone: { type: String, required: true }
+    },
+
+    projectInfo: {
+        projectName: { type: String, required: true },
+        projectDescription: { type: String, required: true },
+        projectTimeline: { type: String, required: true },
+    },
+
     date: {type: Number, required: true},
     
 })

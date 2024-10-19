@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 const Request = ({ token }) => {
   const [requests, setRequests] = useState([]);
+  const [expandedRequest, setExpandedRequest] = useState(null);
 
   const fetchAllOrders = async () => {
     if (!token) {
@@ -54,6 +55,14 @@ const Request = ({ token }) => {
     fetchAllOrders();
   }, [token]);
 
+  const toggleDetails = (requestId) => {
+    if (expandedRequest === requestId) {
+      setExpandedRequest(null); // Collapse if already expanded
+    } else {
+      setExpandedRequest(requestId); // Expand the current request
+    }
+  };
+
   // console.log(requests);
 
   return (
@@ -93,12 +102,38 @@ const Request = ({ token }) => {
             <select
               value={req.status}
               className="p-2 font-semibold"
-              onChange={(e)=> statusHandler(e,req._id) }
+              onChange={(e) => statusHandler(e, req._id)}
             >
               <option value="pending">Pending</option>
               <option value="accepted">Accepted</option>
               <option value="declined">Declined</option>
             </select>
+
+            <button
+              className="text-blue-500 underline"
+              onClick={() => toggleDetails(req._id)}
+            >
+              {expandedRequest === req._id ? "Hide Details" : "Show Details"}
+            </button>
+
+            {expandedRequest === req._id && (
+              <div className="col-span-full bg-gray-50 p-4 mt-2 border-t-2">
+
+                <p className="mt-4"><strong> Project Info:</strong> 
+                    <p className="ml-4"><span className="font-semibold">Name:</span> {req.projectInfo.projectName}</p>
+                    <p className="ml-4"><span className="font-semibold">Description:</span> {req.projectInfo.projectDescription}</p>
+                    <p className="ml-4"><span className="font-semibold">Timeline:</span> {req.projectInfo.projectTimeline}</p>
+                </p>                
+                
+                <p className="mt-4"><strong> Contact Info:</strong> 
+                    <p className="ml-4"><span className="font-semibold">Email:</span> {req.userInfo.email}</p>
+                    <p className="ml-4"><span className="font-semibold">Phone:</span> {req.userInfo.phone}</p>
+                </p>
+
+                
+
+              </div>
+            )}
           </div>
         ))}
       </div>
