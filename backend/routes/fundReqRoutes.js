@@ -11,7 +11,7 @@ fundReqRouter.post('/list',adminAuth,allFundReq)
 fundReqRouter.post('/status',adminAuth,updateStatus)
 
 // Fund request place features
-fundReqRouter.post('/place',authUser,placeFundReq)
+fundReqRouter.post('/place',upload.single('budgetDetails'),authUser,placeFundReq)
 
 // User features
 fundReqRouter.post('/userreq',authUser,userFundReq)

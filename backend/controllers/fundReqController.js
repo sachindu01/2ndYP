@@ -1,10 +1,15 @@
 import fundReqModel from "../models/fundReqModel.js";
 import userModel from "../models/userModel.js";
+import {v2 as cloudinary} from "cloudinary"
 
 // Placing fund request
 const placeFundReq = async (req, res) => {
 
     try {
+
+        console.log(req.body); 
+        console.log(req.file);
+
         // Extracting required data from request body
         const {
             userId,
@@ -15,18 +20,28 @@ const placeFundReq = async (req, res) => {
             supervisor,
         } = req.body;
 
-        // const budgetDetailsUrl = req.file.budgetDetails;
+        // Get the file path from Multer (this will be in req.file)
+        const budgetDetails = req.file;
+
+        // Upload the file to Cloudinary
+        let budgetDetailsUrl = null;
+        if (budgetDetails) {
+            const result = await cloudinary.uploader.upload(budgetDetails.path, {
+                resource_type: 'raw' // 'raw' for PDFs and other non-media files
+            });
+            budgetDetailsUrl = result.secure_url; // Get the secure URL
+        }
         
 
         // Creating the fund request data
         const fundReqData = {
             userId,
             leader,
-            teamMembers: JSON.parse(teamMembers),
-            contactInfo: JSON.parse(contactInfo),
-            projectInfo: JSON.parse(projectInfo),
-            supervisor: JSON.parse(supervisor),
-            // budgetDetails: budgetDetailsUrl,  
+            teamMembers,
+            contactInfo,
+            projectInfo,
+            supervisor,
+            budgetDetails: budgetDetailsUrl,  
             date: Date.now(),  
             
         };

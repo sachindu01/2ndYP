@@ -102,6 +102,8 @@ const RequestFunds = () => {
     if (currentStep === steps.length) {
       setComplete(true);
 
+       
+
       // Submit the form
       submitFormData();
 
@@ -117,16 +119,38 @@ const RequestFunds = () => {
 
   const submitFormData = async () => {
     const formDataToSend = new FormData();
+// Append individual form fields
+formDataToSend.append("leader", formData.leader);
 
-    // Append form fields
-    formDataToSend.append("leader", formData.leader);
-    formDataToSend.append("teamMembers", JSON.stringify(formData.teamMembers));
-    formDataToSend.append("contactInfo", JSON.stringify(formData.contactInfo));
-    formDataToSend.append("projectInfo", JSON.stringify(formData.projectInfo));
-    formDataToSend.append("supervisor", JSON.stringify(formData.supervisor));
-    // formDataToSend.append("budgetDetails", formData.budgetDetails);
+// Handle teamMembers array
+formData.teamMembers.forEach((member, index) => {
+  formDataToSend.append(`teamMembers[${index}]`, member);
+});
+
+// Handle contactInfo object
+formDataToSend.append("contactInfo[email]", formData.contactInfo.email);
+formDataToSend.append("contactInfo[phone]", formData.contactInfo.phone);
+
+// Handle projectInfo object
+formDataToSend.append("projectInfo[projectTitle]", formData.projectInfo.projectTitle);
+formDataToSend.append("projectInfo[projectDescription]", formData.projectInfo.projectDescription);
+formDataToSend.append("projectInfo[goal]", formData.projectInfo.goal);
+formDataToSend.append("projectInfo[risks]", formData.projectInfo.risks);
+formDataToSend.append("projectInfo[projectType]", formData.projectInfo.projectType);
+formDataToSend.append("projectInfo[startingDate]", formData.projectInfo.startingDate);
+formDataToSend.append("projectInfo[completionDate]", formData.projectInfo.completionDate);
+
+// Handle supervisor object
+formDataToSend.append("supervisor[name]", formData.supervisor.name);
+formDataToSend.append("supervisor[email]", formData.supervisor.email);
+
+
+formDataToSend.append("budgetDetails", formData.budgetDetails);
+
 
     try {
+
+      
       const response = await axios.post(
         backendUrl + "/api/fund/place",
         formDataToSend,
