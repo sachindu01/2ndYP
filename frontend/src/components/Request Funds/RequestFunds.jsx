@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Stepper from "./stepper";
 import Button from "./submitButton";
 import ApplicationForm from "./form";
 import "./RequestFunds.css";
 import { useNavigate } from "react-router-dom";
 import isEmail from "validator/lib/isEmail";
+import { ShopContext } from "../../context/ShopConext";
+import axios from "axios";
 
 const RequestFunds = () => {
   const steps = ["Contact Information", "About the Project", "Approval"];
@@ -12,6 +14,8 @@ const RequestFunds = () => {
   const [complete, setComplete] = useState(false);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+
+  const { backendUrl, token } = useContext(ShopContext);
 
   const [formData, setFormData] = useState({
     leader: "",
@@ -112,16 +116,31 @@ const RequestFunds = () => {
   };
 
   const submitFormData = async () => {
-    // try {
-    //   const response = await axios.post('/api/fundreq', formData);
-    //   if (response.data.success) {
-    //     console.log('Fund request submitted successfully');
-    //   } else {
-    //     console.log('Failed to submit the request', response.data.message);
-    //   }
-    // } catch (error) {
-    //   console.error('Error submitting form:', error);
-    // }
+    const formDataToSend = new FormData();
+
+    // Append form fields
+    formDataToSend.append("leader", formData.leader);
+    formDataToSend.append("teamMembers", JSON.stringify(formData.teamMembers));
+    formDataToSend.append("contactInfo", JSON.stringify(formData.contactInfo));
+    formDataToSend.append("projectInfo", JSON.stringify(formData.projectInfo));
+    formDataToSend.append("supervisor", JSON.stringify(formData.supervisor));
+    // formDataToSend.append("budgetDetails", formData.budgetDetails);
+
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/fund/place",
+        formDataToSend,
+        { headers: { token } }
+      );
+
+      if (response.data.success) {
+        console.log("Fund request submitted successfully");
+      } else {
+        console.log("Failed to submit the request", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (

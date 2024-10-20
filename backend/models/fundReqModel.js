@@ -16,17 +16,17 @@ const fundReqSchema = new mongoose.Schema({
         projectDescription: { type: String, required: true },
         goal: { type: String, required: false },
         risks: { type: String, required: false },
-        projectType: { type: String, required: true },
+        projectType: { type: String, required: false },
         startingDate: { type: Date, required: true }, 
-        completionDate: { type: Date, required: true },
+        completionDate: { type: Date, required: false },
       },
 
     supervisor: { 
         name:  { type: String, required: true },
-        email: { type: String, required: true }
+        email: { type: String, required: false }
      },   
 
-    budgetDetails: { type: String, required: true },
+    budgetDetails: { type: String, required: false },
     status: { type: String, default: 'pending' },
     date: { type: Number, required: true }
 })

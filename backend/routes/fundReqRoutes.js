@@ -2,7 +2,7 @@ import express from 'express'
 import { placeFundReq, allFundReq, userFundReq , updateStatus } from '../controllers/fundReqController.js'
 import adminAuth from '../middleware/adminAuth.js'
 import authUser from '../middleware/auth.js'
-
+import upload from '../middleware/multer.js'
 
 const fundReqRouter = express.Router()
 

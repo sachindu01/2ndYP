@@ -13,33 +13,20 @@ const placeFundReq = async (req, res) => {
             contactInfo,
             projectInfo,
             supervisor,
-            budgetDetails
         } = req.body;
+
+        // const budgetDetailsUrl = req.file.budgetDetails;
         
 
         // Creating the fund request data
         const fundReqData = {
             userId,
             leader,
-            teamMembers,
-            contactInfo: {
-                email: contactInfo.email,
-                phone: contactInfo.phone,
-            },
-            projectInfo: {
-                projectTitle: projectInfo.projectTitle,
-                projectDescription: projectInfo.projectDescription,
-                goal: projectInfo.goal,
-                risks: projectInfo.risks,
-                projectType: projectInfo.projectType,
-                startingDate: projectInfo.startingDate,
-                completionDate: projectInfo.completionDate,
-            },
-            supervisor: {
-                name: supervisor.name,
-                email: supervisor.email,
-            },
-            budgetDetails,  
+            teamMembers: JSON.parse(teamMembers),
+            contactInfo: JSON.parse(contactInfo),
+            projectInfo: JSON.parse(projectInfo),
+            supervisor: JSON.parse(supervisor),
+            // budgetDetails: budgetDetailsUrl,  
             date: Date.now(),  
             
         };
@@ -50,7 +37,6 @@ const placeFundReq = async (req, res) => {
         // Saving the fund request to the database
         await newFundReq.save();
 
-        // Responding with success message
         res.json({ success: true, message: 'Fund request submitted successfully' });
 
 
