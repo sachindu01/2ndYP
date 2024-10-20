@@ -28,7 +28,8 @@ const fundReqSchema = new mongoose.Schema({
 
     budgetDetails: { type: String, required: true },
     status: { type: String, default: 'pending' },
-    date: { type: Number, required: true }
+    date: { type: Number, required: true },
+    verificationKey: { type: String, required: true }
 })
 
 const fundReqModel = mongoose.models.fundReq || mongoose.model('fundReq', fundReqSchema)

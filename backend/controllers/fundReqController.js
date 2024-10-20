@@ -1,6 +1,7 @@
 import fundReqModel from "../models/fundReqModel.js";
 import userModel from "../models/userModel.js";
 import {v2 as cloudinary} from "cloudinary"
+import crypto from 'crypto-js';
 
 // Placing fund request
 const placeFundReq = async (req, res) => {
@@ -31,6 +32,11 @@ const placeFundReq = async (req, res) => {
             });
             budgetDetailsUrl = result.secure_url; // Get the secure URL
         }
+
+        // Generate a hash for verification key (based on userId and date)
+        const rawString = userId + Date.now().toString();
+        const hash = crypto.SHA256(rawString).toString(); // Generate SHA256 hash
+        const verificationKey = hash.substring(0, 6).toUpperCase();
         
 
         // Creating the fund request data
@@ -41,7 +47,8 @@ const placeFundReq = async (req, res) => {
             contactInfo,
             projectInfo,
             supervisor,
-            budgetDetails: budgetDetailsUrl,  
+            budgetDetails: budgetDetailsUrl,
+            verificationKey,  
             date: Date.now(),  
             
         };
