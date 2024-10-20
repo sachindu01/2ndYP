@@ -1,6 +1,6 @@
 import React from "react";
 
-const AboutProject = ({ onFormDataChange, formData }) => {
+const AboutProject = ({ onFormDataChange, formData, errors }) => {
   // Handle change for form inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +35,9 @@ const AboutProject = ({ onFormDataChange, formData }) => {
             value={formData.projectInfo.projectTitle}
             onChange={handleInputChange}
           />
+          {errors.projectTitle && (
+            <span className="error-text">{errors.projectTitle}</span>
+          )}
         </div>
       </div>
 
@@ -51,6 +54,9 @@ const AboutProject = ({ onFormDataChange, formData }) => {
             value={formData.projectInfo.projectDescription}
             onChange={handleInputChange}
           ></textarea>
+          {errors.projectDescription && (
+            <span className="error-text">{errors.projectDescription}</span>
+          )}
         </div>
       </div>
 
@@ -158,6 +164,9 @@ const AboutProject = ({ onFormDataChange, formData }) => {
             value={formData.projectInfo.startingDate}
             onChange={handleInputChange}
           />
+          {errors.startingDate && (
+            <span className="error-text">{errors.startingDate}</span>
+          )}
         </div>
       </div>
 
@@ -201,6 +210,9 @@ const AboutProject = ({ onFormDataChange, formData }) => {
             className="pdf-input"
             onChange={handleInputChange}
           />
+          {errors.budgetDetails && (
+            <span className="error-text">{errors.budgetDetails}</span>
+          )}
         </div>
       </div>
 
@@ -217,6 +229,9 @@ const AboutProject = ({ onFormDataChange, formData }) => {
             I, the Project Lead hereby confirm the above-mentioned information
             is accurate as per my understanding.
           </label>
+          {errors.isChecked && (
+            <span className="error-text">{errors.isChecked}</span>
+          )}
         </div>
       </div>
     </div>

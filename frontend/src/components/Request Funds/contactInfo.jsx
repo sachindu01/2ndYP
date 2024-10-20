@@ -1,6 +1,6 @@
 import React from "react";
 
-const ContactInfo = ({ onFormDataChange, formData }) => {
+const ContactInfo = ({ onFormDataChange, formData, errors }) => {
   // Handle change for lead name and email/phone
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,6 +44,9 @@ const ContactInfo = ({ onFormDataChange, formData }) => {
               onChange={(e) => handleTeamMembersChange(index, e.target.value)}
             />
           ))}
+          {errors.teamMembers && (
+            <span className="error-text">{errors.teamMembers}</span>
+          )}
         </div>
       </div>
 
@@ -60,6 +63,7 @@ const ContactInfo = ({ onFormDataChange, formData }) => {
             value={formData.leader}
             onChange={handleInputChange}
           />
+          {errors.leader && <span className="error-text">{errors.leader}</span>}
         </div>
       </div>
 
@@ -77,6 +81,7 @@ const ContactInfo = ({ onFormDataChange, formData }) => {
             value={formData.contactInfo.email}
             onChange={handleInputChange}
           />
+          {errors.email && <span className="error-text">{errors.email}</span>}
         </div>
       </div>
 
@@ -94,6 +99,7 @@ const ContactInfo = ({ onFormDataChange, formData }) => {
             value={formData.contactInfo.phone}
             onChange={handleInputChange}
           />
+          {errors.phone && <span className="error-text">{errors.phone}</span>}
         </div>
       </div>
     </div>

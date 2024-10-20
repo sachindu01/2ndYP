@@ -1,6 +1,6 @@
 import React from "react";
 
-const Approval = ({ onFormDataChange, formData }) => {
+const Approval = ({ onFormDataChange, formData, errors }) => {
   // Handle change for supervisor inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,6 +32,7 @@ const Approval = ({ onFormDataChange, formData }) => {
             value={formData.supervisor.name}
             onChange={handleInputChange}
           />
+          {errors.supervisorName  && <span className="error-text">{errors.supervisorName }</span>}
         </div>
       </div>
 
