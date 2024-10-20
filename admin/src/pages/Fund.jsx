@@ -84,7 +84,7 @@ const Fund = ({ token }) => {
 
             <div>
               <p className="font-medium">Budget Details</p>
-              <a href={req.budgetDetails} target="_blank" rel="noreferrer">View Budget</a>
+              <a  className="text-blue-600" href={req.budgetDetails} target="_blank" rel="noreferrer">View Budget</a>
             </div>
 
             <select
