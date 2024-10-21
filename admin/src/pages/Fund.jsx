@@ -129,27 +129,54 @@ const Fund = ({ token }) => {
               <p>Type: {req.projectInfo.projectType}</p>
             </div>
 
-            <div>
-              <p className="font-medium">Budget Details</p>
-              <a
-                className="text-blue-600"
-                href={req.budgetDetails}
-                target="_blank"
-                rel="noreferrer"
-              >
-                View Budget
-              </a>
+            <div className="w-full">
+              <>
+                <p className="font-medium">Budget Details</p>
+                <a
+                  className="text-blue-600"
+                  href={req.budgetDetails}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Budget
+                </a>
+              </>
+              {/* Conditionally render buttons when status is "accepted" */}
+              {req.status === "accepted" && (
+                <div className="mt-5 flex flex-col space-y-2">
+                  <p className="w-full">
+                    <p className="font-medium">Issued Date: </p>
+                  </p>
+                  <p className="w-full">
+                    <p className="font-medium">Returned Date: </p>
+                  </p>
+                </div>
+              )}
             </div>
 
-            <select
-              value={req.status}
-              className="p-2 font-semibold"
-              onChange={(e) => statusHandler(e, req._id)}
-            >
-              <option value="pending">Pending</option>
-              <option value="accepted">Accepted</option>
-              <option value="declined">Declined</option>
-            </select>
+            <div className="w-full">
+              <select
+                value={req.status}
+                className="w-full p-2 font-semibold border rounded"
+                onChange={(e) => statusHandler(e, req._id)}
+              >
+                <option value="pending">Pending</option>
+                <option value="accepted">Accepted</option>
+                <option value="declined">Declined</option>
+              </select>
+
+              {/* Conditionally render buttons when status is "accepted" */}
+              {req.status === "accepted" && (
+                <div className="mt-5 flex flex-col space-y-2">
+                  <button className="w-full px-4 py-2 bg-green-600 text-white rounded hover:bg-green-600">
+                    ISSUED
+                  </button>
+                  <button className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-600">
+                    RETURNED
+                  </button>
+                </div>
+              )}
+            </div>
 
             <button
               className="text-blue-500 underline"
