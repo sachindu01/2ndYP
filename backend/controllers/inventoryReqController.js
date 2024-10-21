@@ -130,22 +130,31 @@ const markAsIssued = async (req, res) => {
 
         const order = await inventoryReqModel.findByIdAndUpdate(reqId, { issuedDate });
 
-        if (order) {
-            return res.json({ success: true, message: 'Request marked as issued' });
+        if (!order) {
+            return res.json({ success: false, message: 'Inventory request not found' });
         }
-        return res.json({ success: false, message: 'Inventory request not found' });
 
 
-    //     // Reduce item quantities in the inventory
-    //     for (const item of order.items) {
-    //         const product = await productModel.findOne({ name: item.name });
-    //         if (product && product.quantity >= item.quantity) {
-    //             product.quantity -= item.quantity;
-    //             await product.save();
-    //         } else {
-    //             return res.status(400).json({ success: false, message: `Not enough stock for ${item.name}` });
-    //         }
-    //     }
+        // Loop through the items in the request and update the inventory
+        for (const item of order.items) {
+        
+        const product = await productModel.findById(item._id);
+
+        if (!product) {
+            return res.status(400).json({ success: false, message: `Product ${item.name} not found in inventory` });
+        }
+
+        // Check if the product has enough stock to fulfill the request
+        if (product.quantity >= item.quantity) {
+            product.quantity -= item.quantity; // Deduct the requested quantity from stock
+            await product.save(); // Save the updated product
+
+        } else {
+            return res.status(400).json({ success: false, message: `Not enough stock for product ${item.name}` });
+        }
+         }
+
+     return res.json({ success: true, message: 'Request marked as issued and stock updated' });
 
     } catch (error) {
         console.log(error);
@@ -163,27 +172,25 @@ const markAsReturned = async (req, res) => {
 
         const order = await inventoryReqModel.findByIdAndUpdate(reqId, { returnedDate });
 
-        if (order) {
-            return res.json({ success: true, message: 'Request marked as returned' });
+        if (!order) {
+            return res.json({ success: false, message: 'Inventory request not found' });
         }
-        return res.json({ success: false, message: 'Inventory request not found' });
-   
 
-    // try {
-    //     const order = await inventoryReqModel.findByIdAndUpdate(orderId);
-    //     if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+         // Loop through the items in the request and update the inventory
+         for (const item of order.items) {
+        
+            const product = await productModel.findById(item._id);
+    
+            if (!product) {
+                return res.status(400).json({ success: false, message: `Product ${item.name} not found in inventory` });
+            }
 
-    //     // Update the returned date 
-    //     order.returnedDate = new Date();
+            product.quantity += item.quantity;
+            await product.save();
+            
+        }
 
-    //     // Return item quantities to the inventory
-    //     for (const item of order.items) {
-    //         const product = await productModel.findOne({ name: item.name });
-    //         if (product) {
-    //             product.quantity += item.quantity;
-    //             await product.save();
-    //         }
-    //     }
+    return res.json({ success: true, message: 'stock updated' });
 
     } catch (error) {
         console.log(error);
