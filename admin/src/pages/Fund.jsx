@@ -26,7 +26,7 @@ const Fund = ({ token }) => {
 
       if (response.data.success) {
         setFundRequests(response.data.fundRequests.reverse());
-        setFilteredFundRequests(response.data.fundRequests.reverse());
+        setFilteredFundRequests(response.data.fundRequests);
       } else {
         toast.error(response.data.message);
       }
@@ -89,6 +89,26 @@ const Fund = ({ token }) => {
     setIsSearchVisible((prev) => !prev); // Toggle search bar visibility
   };
 
+  const handleIssued = async (reqId) => {
+    const issuedDate = new Date().toISOString(); // Get the current date
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/fund/issue",
+        { reqId, issuedDate },
+        {
+          headers: { token }, // Pass authentication token if needed
+        }
+      );
+      if (response.data.success) {
+        await fetchAllFundRequests(); // Refresh the fund requests
+        toast.success("Fund issued successfully!");
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -141,16 +161,12 @@ const Fund = ({ token }) => {
                   View Budget
                 </a>
               </>
-              {/* Conditionally render buttons when status is "accepted" */}
-              {req.status === "accepted" && (
-                <div className="mt-5 flex flex-col space-y-2">
-                  <p className="w-full">
-                    <p className="font-medium">Issued Date: </p>
-                  </p>
-                  <p className="w-full">
-                    <p className="font-medium">Returned Date: </p>
-                  </p>
-                </div>
+              {/* Conditionally render issue date when status is "accepted" */}
+              {req.issuedDate && (
+                <p className="mt-7 text-sm text-gray-700">
+                  <span className="font-semibold">Issued Date:</span>{" "}
+                  {new Date(req.issuedDate).toLocaleDateString()}
+                </p>
               )}
             </div>
 
@@ -168,11 +184,14 @@ const Fund = ({ token }) => {
               {/* Conditionally render buttons when status is "accepted" */}
               {req.status === "accepted" && (
                 <div className="mt-5 flex flex-col space-y-2">
-                  <button className="w-full px-4 py-2 bg-green-600 text-white rounded hover:bg-green-600">
+                  <button
+                    className={`w-full px-4 py-2 text-white rounded ${req.issuedDate ? "bg-gray-500 cursor-not-allowed" : "bg-green-600 hover:bg-green-600"}`}
+                    disabled={req.issuedDate} 
+                    onClick={
+                      req.issuedDate ? null : () => handleIssued(req._id)
+                    }
+                  >
                     ISSUED
-                  </button>
-                  <button className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-600">
-                    RETURNED
                   </button>
                 </div>
               )}

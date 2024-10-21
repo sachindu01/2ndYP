@@ -1,5 +1,5 @@
 import express from 'express'
-import { placeFundReq, allFundReq, userFundReq , updateStatus } from '../controllers/fundReqController.js'
+import { placeFundReq, allFundReq, userFundReq , updateStatus,updateIssuedDate } from '../controllers/fundReqController.js'
 import adminAuth from '../middleware/adminAuth.js'
 import authUser from '../middleware/auth.js'
 import upload from '../middleware/multer.js'
@@ -15,5 +15,7 @@ fundReqRouter.post('/place',upload.single('budgetDetails'),authUser,placeFundReq
 
 // User features
 fundReqRouter.post('/userreq',authUser,userFundReq)
+
+fundReqRouter.post('/issue',adminAuth,updateIssuedDate)
 
 export default fundReqRouter

@@ -129,6 +129,23 @@ const updateStatus = async (req, res) => {
 
 }
 
+// Update the issued date for a fund request
+const updateIssuedDate = async (req, res) => {
+    try {
+        const { reqId, issuedDate } = req.body; // Get request ID and issuedDate from the request body
+        const fundReq = await fundReqModel.findByIdAndUpdate(reqId, { issuedDate });
+
+        if (fundReq) {
+            return res.json({ success: true, message: 'Issued date updated successfully' });
+        }
+        return res.json({ success: false, message: 'Fund request not found' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+
 // const getOrderDetails = async (req, res) => {
 //     const { orderId } = req.params; // Get orderId from request parameters
 
@@ -146,4 +163,4 @@ const updateStatus = async (req, res) => {
 //     }
 // };
 
-export { placeFundReq, allFundReq, userFundReq , updateStatus }
+export { placeFundReq, allFundReq, userFundReq , updateStatus,updateIssuedDate }

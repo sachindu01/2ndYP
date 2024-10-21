@@ -11,7 +11,7 @@ const Request = ({ token }) => {
   const [filteredRequests, setFilteredRequests] = useState([]);
   const [expandedRequest, setExpandedRequest] = useState(null);
   const [search, setSearch] = useState("");
-  const [isSearchVisible, setIsSearchVisible] = useState(false)
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const fetchAllOrders = async () => {
     if (!token) {
@@ -27,7 +27,7 @@ const Request = ({ token }) => {
 
       if (response.data.success) {
         setRequests(response.data.orders.reverse());
-        setFilteredRequests(response.data.orders.reverse());
+        setFilteredRequests(response.data.orders);
       } else {
         toast.error(response.data.message);
       }
@@ -37,8 +37,8 @@ const Request = ({ token }) => {
     }
   };
 
-   // Filter function to apply search
-   const applyFilter = () => {
+  // Filter function to apply search
+  const applyFilter = () => {
     if (search) {
       const filtered = requests.filter((req) =>
         req.verificationKey.includes(search)
@@ -137,20 +137,47 @@ const Request = ({ token }) => {
               <p>{req.userInfo.phone}</p>
             </div>
 
-            <div>
-              <p>Items: {req.items.length}</p>
-              <p>Date: {new Date(req.date).toLocaleDateString()}</p>
+            <div className="w-full">
+              <>
+                <p>Items: {req.items.length}</p>
+                <p>Date: {new Date(req.date).toLocaleDateString()}</p>
+              </>
+              {/* Conditionally render buttons when status is "accepted" */}
+              {req.status === "accepted" && (
+                <div className="mt-5 flex flex-col space-y-2">
+                  <p className="w-full">
+                    <p className="font-medium">Issued Date: </p>
+                  </p>
+                  <p className="w-full">
+                    <p className="font-medium">Returned Date: </p>
+                  </p>
+                </div>
+              )}
             </div>
 
-            <select
-              value={req.status}
-              className="p-2 font-semibold"
-              onChange={(e) => statusHandler(e, req._id)}
-            >
-              <option value="pending">Pending</option>
-              <option value="accepted">Accepted</option>
-              <option value="declined">Declined</option>
-            </select>
+            <div className="w-full">
+              <select
+                value={req.status}
+                className="w-full p-2 font-semibold border rounded"
+                onChange={(e) => statusHandler(e, req._id)}
+              >
+                <option value="pending">Pending</option>
+                <option value="accepted">Accepted</option>
+                <option value="declined">Declined</option>
+              </select>
+
+              {/* Conditionally render buttons when status is "accepted" */}
+              {req.status === "accepted" && (
+                <div className="mt-5 flex flex-col space-y-2">
+                  <button className="w-full px-4 py-2 bg-green-600 text-white rounded hover:bg-green-600">
+                    ISSUED
+                  </button>
+                  <button className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-600">
+                    RETURNED
+                  </button>
+                </div>
+              )}
+            </div>
 
             <button
               className="text-blue-500 underline"
@@ -161,20 +188,33 @@ const Request = ({ token }) => {
 
             {expandedRequest === req._id && (
               <div className="col-span-full bg-gray-50 p-4 mt-2 border-t-2">
-
-                <p className="mt-4"><strong> Project Info:</strong> 
-                    <p className="ml-4"><span className="font-semibold">Name:</span> {req.projectInfo.projectName}</p>
-                    <p className="ml-4"><span className="font-semibold">Description:</span> {req.projectInfo.projectDescription}</p>
-                    <p className="ml-4"><span className="font-semibold">Timeline:</span> {req.projectInfo.projectTimeline}</p>
-                </p>                
-                
-                <p className="mt-4"><strong> Contact Info:</strong> 
-                    <p className="ml-4"><span className="font-semibold">Email:</span> {req.userInfo.email}</p>
-                    <p className="ml-4"><span className="font-semibold">Phone:</span> {req.userInfo.phone}</p>
+                <p className="mt-4">
+                  <strong> Project Info:</strong>
+                  <p className="ml-4">
+                    <span className="font-semibold">Name:</span>{" "}
+                    {req.projectInfo.projectName}
+                  </p>
+                  <p className="ml-4">
+                    <span className="font-semibold">Description:</span>{" "}
+                    {req.projectInfo.projectDescription}
+                  </p>
+                  <p className="ml-4">
+                    <span className="font-semibold">Timeline:</span>{" "}
+                    {req.projectInfo.projectTimeline}
+                  </p>
                 </p>
 
-                
-
+                <p className="mt-4">
+                  <strong> Contact Info:</strong>
+                  <p className="ml-4">
+                    <span className="font-semibold">Email:</span>{" "}
+                    {req.userInfo.email}
+                  </p>
+                  <p className="ml-4">
+                    <span className="font-semibold">Phone:</span>{" "}
+                    {req.userInfo.phone}
+                  </p>
+                </p>
               </div>
             )}
           </div>
