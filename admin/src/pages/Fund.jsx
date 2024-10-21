@@ -96,11 +96,11 @@ const Fund = ({ token }) => {
         backendUrl + "/api/fund/issue",
         { reqId, issuedDate },
         {
-          headers: { token }, // Pass authentication token if needed
+          headers: { token }, 
         }
       );
       if (response.data.success) {
-        await fetchAllFundRequests(); // Refresh the fund requests
+        await fetchAllFundRequests(); 
         toast.success("Fund issued successfully!");
       }
     } catch (error) {
@@ -161,7 +161,7 @@ const Fund = ({ token }) => {
                   View Budget
                 </a>
               </>
-              {/* Conditionally render issue date when status is "accepted" */}
+              {/* Conditionally render issue date */}
               {req.issuedDate && (
                 <p className="mt-7 text-sm text-gray-700">
                   <span className="font-semibold">Issued Date:</span>{" "}
@@ -185,7 +185,7 @@ const Fund = ({ token }) => {
               {req.status === "accepted" && (
                 <div className="mt-5 flex flex-col space-y-2">
                   <button
-                    className={`w-full px-4 py-2 text-white rounded ${req.issuedDate ? "bg-gray-500 cursor-not-allowed" : "bg-green-600 hover:bg-green-600"}`}
+                    className={`w-full px-4 py-2 text-white rounded ${req.issuedDate ? "bg-gray-500 cursor-not-allowed" : "bg-green-600 hover:bg-green-700"}`}
                     disabled={req.issuedDate} 
                     onClick={
                       req.issuedDate ? null : () => handleIssued(req._id)

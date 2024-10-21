@@ -1,6 +1,7 @@
 import inventoryReqModel from "../models/inventoryReqModel.js";
 import userModel from "../models/userModel.js";
 import crypto from 'crypto-js';
+import productModel from "../models/productModel.js";
 
 // Placing orders 
 const placeOrder = async (req, res) => {
@@ -119,4 +120,75 @@ const getOrderDetails = async (req, res) => {
     }
 };
 
-export { placeOrder, allOrders, userOrders, updateStatus,getOrderDetails }
+// Route for marking the request as issued
+const markAsIssued = async (req, res) => {
+
+    try {
+
+        const { reqId } = req.body; 
+        const issuedDate = new Date();
+
+        const order = await inventoryReqModel.findByIdAndUpdate(reqId, { issuedDate });
+
+        if (order) {
+            return res.json({ success: true, message: 'Request marked as issued' });
+        }
+        return res.json({ success: false, message: 'Inventory request not found' });
+
+
+    //     // Reduce item quantities in the inventory
+    //     for (const item of order.items) {
+    //         const product = await productModel.findOne({ name: item.name });
+    //         if (product && product.quantity >= item.quantity) {
+    //             product.quantity -= item.quantity;
+    //             await product.save();
+    //         } else {
+    //             return res.status(400).json({ success: false, message: `Not enough stock for ${item.name}` });
+    //         }
+    //     }
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+
+// Route for marking the request as returned
+const markAsReturned = async (req, res) => {
+
+    try {
+        const { reqId } = req.body; 
+        const returnedDate = new Date();
+
+        const order = await inventoryReqModel.findByIdAndUpdate(reqId, { returnedDate });
+
+        if (order) {
+            return res.json({ success: true, message: 'Request marked as returned' });
+        }
+        return res.json({ success: false, message: 'Inventory request not found' });
+   
+
+    // try {
+    //     const order = await inventoryReqModel.findByIdAndUpdate(orderId);
+    //     if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+
+    //     // Update the returned date 
+    //     order.returnedDate = new Date();
+
+    //     // Return item quantities to the inventory
+    //     for (const item of order.items) {
+    //         const product = await productModel.findOne({ name: item.name });
+    //         if (product) {
+    //             product.quantity += item.quantity;
+    //             await product.save();
+    //         }
+    //     }
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+export { placeOrder, allOrders, userOrders, updateStatus, getOrderDetails, markAsIssued, markAsReturned }

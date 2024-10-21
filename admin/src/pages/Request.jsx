@@ -90,6 +90,45 @@ const Request = ({ token }) => {
 
   // console.log(requests);
 
+  const handleIssued = async (reqId) => {
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/order/issue",
+        { reqId },
+        {
+          headers: { token },
+        }
+      );
+
+      if (response.data.success) {
+        await fetchAllOrders();
+        toast.success("Items issued!");
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    }
+  };
+
+  const handleReturned = async (reqId) => {
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/order/return",
+        { reqId },
+        {
+          headers: { token },
+        }
+      );
+      if (response.data.success) {
+        await fetchAllOrders();
+        toast.success("Items returned!");
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -114,7 +153,7 @@ const Request = ({ token }) => {
       <div>
         {filteredRequests.map((req, index) => (
           <div
-            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
+            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_1.5fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
             key={index}
           >
             <img className="w-12" src={assets.parcel_icon} alt="" />
@@ -142,16 +181,21 @@ const Request = ({ token }) => {
                 <p>Items: {req.items.length}</p>
                 <p>Date: {new Date(req.date).toLocaleDateString()}</p>
               </>
-              {/* Conditionally render buttons when status is "accepted" */}
-              {req.status === "accepted" && (
-                <div className="mt-5 flex flex-col space-y-2">
-                  <p className="w-full">
-                    <p className="font-medium">Issued Date: </p>
-                  </p>
-                  <p className="w-full">
-                    <p className="font-medium">Returned Date: </p>
-                  </p>
-                </div>
+
+              {/* Conditionally render issue date */}
+              {req.issuedDate && (
+                <p className="mt-7 text-sm text-gray-700">
+                  <span className="font-semibold">Issued Date:</span>{" "}
+                  {new Date(req.issuedDate).toLocaleDateString()}
+                </p>
+              )}
+
+              {/* Conditionally render returned date */}
+              {req.returnedDate && (
+                <p className="mt-7 text-sm text-gray-700">
+                  <span className="font-semibold">Returned Date:</span>{" "}
+                  {new Date(req.issuedDate).toLocaleDateString()}
+                </p>
               )}
             </div>
 
@@ -169,10 +213,31 @@ const Request = ({ token }) => {
               {/* Conditionally render buttons when status is "accepted" */}
               {req.status === "accepted" && (
                 <div className="mt-5 flex flex-col space-y-2">
-                  <button className="w-full px-4 py-2 bg-green-600 text-white rounded hover:bg-green-600">
+                  <button
+                    className={`w-full px-4 py-2 text-white rounded ${
+                      req.issuedDate
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : "bg-green-600 hover:bg-green-700"
+                    }`}
+                    disabled={req.issuedDate}
+                    onClick={
+                      req.issuedDate ? null : () => handleIssued(req._id)
+                    }
+                  >
                     ISSUED
                   </button>
-                  <button className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-600">
+
+                  <button
+                    className={`w-full px-4 py-2 text-white rounded ${
+                      req.returnedDate
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : "bg-green-600 hover:bg-green-700"
+                    }`}
+                    disabled={req.returnedDate}
+                    onClick={
+                      req.returnedDate ? null : () => handleReturned(req._id)
+                    }
+                  >
                     RETURNED
                   </button>
                 </div>
