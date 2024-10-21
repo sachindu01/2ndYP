@@ -4,10 +4,14 @@ import { assets } from "../assets/admin_assets/assets";
 import axios from "axios";
 import { backendUrl } from "../App";
 import { toast } from "react-toastify";
+import SearchBar from "../components/SearchBar";
 
 const Request = ({ token }) => {
   const [requests, setRequests] = useState([]);
+  const [filteredRequests, setFilteredRequests] = useState([]);
   const [expandedRequest, setExpandedRequest] = useState(null);
+  const [search, setSearch] = useState("");
+  const [isSearchVisible, setIsSearchVisible] = useState(false)
 
   const fetchAllOrders = async () => {
     if (!token) {
@@ -23,12 +27,25 @@ const Request = ({ token }) => {
 
       if (response.data.success) {
         setRequests(response.data.orders.reverse());
+        setFilteredRequests(response.data.orders.reverse());
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
       toast.error(error.message);
       console.log(error.message);
+    }
+  };
+
+   // Filter function to apply search
+   const applyFilter = () => {
+    if (search) {
+      const filtered = requests.filter((req) =>
+        req.verificationKey.includes(search)
+      );
+      setFilteredRequests(filtered);
+    } else {
+      setFilteredRequests(requests); // Reset to all requests if no search
     }
   };
 
@@ -55,6 +72,10 @@ const Request = ({ token }) => {
     fetchAllOrders();
   }, [token]);
 
+  useEffect(() => {
+    applyFilter();
+  }, [search]);
+
   const toggleDetails = (requestId) => {
     if (expandedRequest === requestId) {
       setExpandedRequest(null); // Collapse if already expanded
@@ -63,13 +84,35 @@ const Request = ({ token }) => {
     }
   };
 
+  const toggleSearchBar = () => {
+    setIsSearchVisible((prev) => !prev); // Toggle search bar visibility
+  };
+
   // console.log(requests);
 
   return (
     <div>
-      <h3>Requests Page</h3>
+      <div className="flex justify-between items-center">
+        <h3 className="flex-grow">
+          <strong>Inventory Requests Page</strong>
+        </h3>
+
+        <button
+          onClick={toggleSearchBar}
+          className="mb-4 px-4 py-2 flex items-center relative group bg-gray-500 rounded text-white hover:bg-gray-600"
+        >
+          <span className="mr-2">
+            {" "}
+            <img className="w-4" src={assets.search_icon} alt="" />
+          </span>
+          <span className="mr-2">Search</span>
+        </button>
+      </div>
+
+      {/* Conditionally render the search bar */}
+      {isSearchVisible && <SearchBar search={search} setSearch={setSearch} />}
       <div>
-        {requests.map((req, index) => (
+        {filteredRequests.map((req, index) => (
           <div
             className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
             key={index}

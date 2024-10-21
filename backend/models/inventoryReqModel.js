@@ -19,6 +19,7 @@ const inventoryReqSchema = new mongoose.Schema({
     },
 
     date: {type: Number, required: true},
+    verificationKey: { type: String, required: true }
     
 })
 

@@ -36,7 +36,7 @@ const placeFundReq = async (req, res) => {
         // Generate a hash for verification key (based on userId and date)
         const rawString = userId + Date.now().toString();
         const hash = crypto.SHA256(rawString).toString(); // Generate SHA256 hash
-        const verificationKey = hash.substring(0, 6).toUpperCase();
+        const verificationKey = hash.substring(0, 10).toUpperCase();
         
 
         // Creating the fund request data

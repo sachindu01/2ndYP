@@ -1,11 +1,17 @@
 import inventoryReqModel from "../models/inventoryReqModel.js";
 import userModel from "../models/userModel.js";
+import crypto from 'crypto-js';
 
 // Placing orders 
 const placeOrder = async (req, res) => {
     
     try {
         const {userId,items,userInfo,projectInfo}=req.body;
+
+        // Generate a hash for verification key (based on userId and date)
+        const rawString = userId + Date.now().toString();
+        const hash = crypto.SHA256(rawString).toString(); // Generate SHA256 hash
+        const verificationKey = hash.substring(0, 10).toUpperCase();
 
         const orderData = {
             userId,
@@ -23,7 +29,7 @@ const placeOrder = async (req, res) => {
                 projectDescription: projectInfo.projectDescription,
                 projectTimeline: projectInfo.projectTimeline,
             },
-        
+            verificationKey,
             date: Date.now()
         }
 
