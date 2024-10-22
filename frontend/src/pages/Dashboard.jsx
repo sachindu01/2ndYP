@@ -8,6 +8,7 @@ const Dashboard = () => {
   const { backendUrl, token, navigate } = useContext(ShopContext);
 
   const [requests, setRequests] = useState([]);
+  const [fundRequests, setFundRequests] = useState([]);
 
   const loadOrderData = async () => {
     try {
@@ -27,26 +28,48 @@ const Dashboard = () => {
     } catch (error) {}
   };
 
-  console.log(requests);
+  const loadFundData = async () => {
+    try {
+      if (!token) {
+        return null;
+      }
+
+      const response = await axios.post(
+        backendUrl + "/api/fund/userreq",
+        {},
+        { headers: { token } }
+      );
+
+      if (response.data.success) {
+        setFundRequests(response.data.userFundRequests.reverse());
+      }
+    } catch (error) {}
+  };
+
+  console.log(fundRequests);
 
   useEffect(() => {
     loadOrderData();
+    loadFundData();
   }, [token]);
 
-  const handleButtonClick = (status, reqId) => {
+  const handleButtonClick = (type,status, reqId) => {
     if (status === "accepted") {
       // Handle download PDF (dummy logic here)
       alert(`Downloading PDF for request ${reqId}`);
-    } else if (status === "declined") {
+    } else if (status === "declined" && type === "inventory") {
       // Navigate to the inventory page
       navigate("/inventory");
+    } else if (status === "declined" && type === "fund") {
+      // Navigate to the fund form
+      navigate("/fund-form");
     }
   };
 
   return (
     <div className="border-t pt-16">
       <div className="text-2xl">
-        <Title text1={"MY"} text2={"REQUESTS"} />
+        <Title text1={"MY INVENTORY"} text2={"REQUESTS"} />
       </div>
 
       <div>
@@ -110,7 +133,7 @@ const Dashboard = () => {
               {req.status === "accepted" && (
                 <button
                   className="border py-2 px-4 bg-blue-500 text-white font-medium rounded-sm"
-                  onClick={() => handleButtonClick("accepted", req._id)}
+                  onClick={() => handleButtonClick("inventory","accepted", req._id)}
                 >
                   Download PDF
                 </button>
@@ -118,7 +141,7 @@ const Dashboard = () => {
               {req.status === "declined" && (
                 <button
                   className="border py-2 px-4 bg-red-500 text-white font-medium rounded-sm"
-                  onClick={() => handleButtonClick("declined", req._id)}
+                  onClick={() => handleButtonClick("inventory","declined", req._id)}
                 >
                   Request Again
                 </button>
@@ -128,7 +151,85 @@ const Dashboard = () => {
                   onClick={loadOrderData}
                   className="border py-2 px-4 text-sm font-medium rounded-sm"
                 >
-                  Track Order
+                  Track Request
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="text-2xl">
+        <Title text1={"MY FUND"} text2={"REQUESTS"} />
+      </div>
+      <div>
+        {fundRequests.map((req, index) => (
+          <div
+            key={index}
+            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-b border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
+            // className="py-4 border-b text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+          >
+            <img className="w-16 sm:w-20" src={assets.fund_icon} />
+            <div>
+              <p>Project Title: <strong>{req.projectInfo.projectTitle} </strong></p>
+              <p>Leader: <strong>{req.leader} </strong></p>
+              <p>Team Members:{req.teamMembers.join(", ")}</p>
+            </div>
+
+            <div>
+              <p>Supervisor: {req.supervisor.name} </p>
+              <p>Date: {new Date(req.date).toDateString()}</p>
+            </div>
+
+            {/* Status Display */}
+            <div>
+              <div className="flex items-center gap-2">
+                {/* Conditionally render based on status */}
+                {req.status === "accepted" && (
+                  <>
+                    <div className="min-w-2 h-2 rounded-full bg-green-500"></div>
+                    <p className="text-sm md:text-base">Request Accepted</p>
+                  </>
+                )}
+                {req.status === "declined" && (
+                  <>
+                    <div className="min-w-2 h-2 rounded-full bg-red-500"></div>
+                    <p className="text-sm md:text-base">Request Declined</p>
+                  </>
+                )}
+                {req.status === "pending" && (
+                  <>
+                    <div className="min-w-2 h-2 rounded-full bg-yellow-500"></div>
+                    <p className="text-sm md:text-base">Pending</p>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Conditionally Render Button */}
+            <div>
+              {req.status === "accepted" && (
+                <button
+                  className="border py-2 px-4 bg-blue-500 text-white font-medium rounded-sm"
+                  onClick={() => handleButtonClick("fund","accepted", req._id)}
+                >
+                  Download PDF
+                </button>
+              )}
+              {req.status === "declined" && (
+                <button
+                  className="border py-2 px-4 bg-red-500 text-white font-medium rounded-sm"
+                  onClick={() => handleButtonClick("fund","declined", req._id)}
+                >
+                  Request Again
+                </button>
+              )}
+              {req.status === "pending" && (
+                <button
+                  onClick={loadFundData}
+                  className="border py-2 px-4 text-sm font-medium rounded-sm"
+                >
+                  Track Request
                 </button>
               )}
             </div>
