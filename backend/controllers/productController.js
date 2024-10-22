@@ -93,5 +93,35 @@ const singleProduct = async (req,res) => {
     
 }
 
+// function to update products
+const updateProduct = async (req,res) => {
 
-export {listProducts,addProduct,removeProduct,singleProduct}
+  try {
+
+      const { productId, quantity } = req.body;
+
+      // Find the product by its ID
+      const product = await productModel.findById(productId);
+
+      if (!product) {
+        return res.json({ success: false, message: "Product not found" });
+      }
+
+      // Update the product's quantity
+      product.quantity = Number(quantity);
+
+      await product.save();
+
+      res.json({ success: true, message: "Product quantity updated " });
+
+      
+  } catch (error) {
+      console.log(error)
+      res.json({success:false,message:error.message})
+      
+  }
+  
+}
+
+
+export {listProducts,addProduct,removeProduct,singleProduct,updateProduct}
