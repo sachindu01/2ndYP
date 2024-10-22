@@ -69,6 +69,7 @@ const Cart = () => {
                   className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 transform -translate-y-14"
                   type="number"
                   min={1}
+                  max={productData.quantity} 
                 />
                 <img
                   onClick={() =>

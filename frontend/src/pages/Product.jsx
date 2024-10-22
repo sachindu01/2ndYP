@@ -5,7 +5,7 @@ import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, addToCart } = useContext(ShopContext);
+  const { products, addToCart} = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
 
@@ -19,6 +19,7 @@ const Product = () => {
       return null;
     });
   };
+
 
   useEffect(() => {
     fetchProductData();
@@ -90,7 +91,7 @@ const Product = () => {
           )} */}
 
           <button
-            onClick={() => addToCart(productData._id)}
+            onClick={() => addToCart(productData._id,productData.quantity)}
             className={`bg-black text-white px-8 py-3 text-sm ${
               productData.quantity === 0
                 ? "bg-gray-500 cursor-not-allowed"

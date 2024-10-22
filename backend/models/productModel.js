@@ -11,6 +11,23 @@ const productSchema = new mongoose.Schema({
     date: { type: Number, required: true },
 });
 
+// Pre-save middleware to update availability based on quantity
+productSchema.pre('save', function (next) {
+    // If the quantity is 0, set availability to false, otherwise true
+    if (this.quantity === 0) {
+        this.availability = false;
+    } else {
+        this.availability = true;
+    }
+    next();
+});
+
 const productModel = mongoose.models.product || mongoose.model("product", productSchema);
 
 export default productModel;
+
+
+
+
+
+

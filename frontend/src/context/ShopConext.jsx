@@ -16,8 +16,17 @@ const ShopContextProvider = (props) => {
 
   const [token, setToken] = useState("");
 
-  const addToCart = async (itemId) => {
+  const addToCart = async (itemId, availableQuantity) => {
     let cartData = structuredClone(cartItems);
+
+    // Check the current quantity of the item in the cart
+    const currentQuantityInCart = cartData[itemId] || 0;
+
+    // Prevent adding more if the cart exceeds available quantity
+    if (currentQuantityInCart >= availableQuantity) {
+      toast.error("Cannot add more items, available quantity exceeded");
+      return;
+    }
 
     // Check if the product already exists in the cart
     if (cartData[itemId]) {
@@ -43,9 +52,9 @@ const ShopContextProvider = (props) => {
     }
   };
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
+  // useEffect(() => {
+  //   console.log(cartItems);
+  // }, [cartItems]);
 
   const getCartCount = () => {
     let totalCount = 0;
@@ -121,7 +130,7 @@ const ShopContextProvider = (props) => {
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
-      getUserCart(localStorage.getItem("token"))
+      getUserCart(localStorage.getItem("token"));
     }
     setLoading(false);
   }, []);
