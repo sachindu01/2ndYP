@@ -3,6 +3,8 @@ import { ShopContext } from "../context/ShopConext";
 import Title from "../components/Title";
 import { assets } from "../assets/frontend_assets/assets";
 import axios from "axios";
+import jsPDF from "jspdf";
+
 
 const Dashboard = () => {
   const { backendUrl, token, navigate } = useContext(ShopContext);
@@ -55,6 +57,7 @@ const Dashboard = () => {
 
   const handleButtonClick = (type,status, reqId) => {
     if (status === "accepted") {
+      generatePDF(type, reqId);
       // Handle download PDF (dummy logic here)
       alert(`Downloading PDF for request ${reqId}`);
     } else if (status === "declined" && type === "inventory") {
@@ -65,6 +68,39 @@ const Dashboard = () => {
       navigate("/fund-form");
     }
   };
+
+  const generatePDF = (type, reqId) => {
+    const doc = new jsPDF();
+  
+    if (type === "inventory") {
+      // Find the specific request using reqId
+      const request = requests.find(req => req._id === reqId);
+      
+      if (request) {
+        doc.text("Inventory Request", 20, 20);
+        doc.text(`Date: ${new Date(request.date).toDateString()}`, 20, 30);
+        
+        request.items.forEach((item, index) => {
+          doc.text(`${item.name} x ${item.quantity}`, 20, 40 + (index * 10));
+        });
+        
+        doc.save(`inventory_request_${reqId}.pdf`);
+      }
+    } else if (type === "fund") {
+      // Find the specific fund request using reqId
+      const fundRequest = fundRequests.find(req => req._id === reqId);
+      
+      if (fundRequest) {
+        doc.text("Fund Request", 20, 20);
+        doc.text(`Project Title: ${fundRequest.projectInfo.projectTitle}`, 20, 30);
+        doc.text(`Date: ${new Date(fundRequest.date).toDateString()}`, 20, 40);
+        doc.text(`Leader: ${fundRequest.leader}`, 20, 50);
+        
+        doc.save(`fund_request_${reqId}.pdf`);
+      }
+    }
+  };
+  
 
   return (
     <div className="border-t pt-16">
