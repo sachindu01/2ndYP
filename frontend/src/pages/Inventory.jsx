@@ -29,8 +29,8 @@ const Inventory = () => {
 
   const subCategoryOptions = {
     Consumables: ["Resistors", "IC Bases", "LEDs","Wires"],
-    Equipment: ["Drills", "Grinders"],
-    Components: ["Arduino", "Raspberry"],
+    Equipment: ["Power Tools","Soldering Tools","Safety Equipment"],
+    Components: ["Development Boards","Sensors","Motors"],
     Stations: ["Measuring", "Soldering","Assembly"],
   };
 
