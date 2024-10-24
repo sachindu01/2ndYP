@@ -97,7 +97,7 @@ const List = ({ token }) => {
               value={product.quantity}
               min={0}
               onChange={(e) =>
-                e.target.value === "" || e.target.value === "0"
+                e.target.value === "" 
                   ? null
                   : updateQuantity(product._id, Number(e.target.value))
               }
