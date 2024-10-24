@@ -107,7 +107,7 @@ const RequestFunds = () => {
       // Submit the form
       submitFormData();
 
-      navigate("/");
+      navigate("/dashboard");
     } else {
       setCurrentStep((prev) => prev + 1);
     }
