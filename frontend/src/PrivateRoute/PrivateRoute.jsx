@@ -4,7 +4,11 @@ import { ShopContext } from "../context/ShopConext";
 
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
-  const {token} = useContext(ShopContext);
+  const {token, loading} = useContext(ShopContext);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return token === "" ? (
     <Navigate to="/login" state={{ from: location }} replace />

@@ -1,33 +1,69 @@
-import React from 'react';
+import React from "react";
 
+const ContactInfo = ({ onFormDataChange, formData, errors }) => {
+  // Handle change for lead name and email/phone
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
 
-const ContactInfo= () => {
+    // Update form data for different fields
+    if (name === "leader") {
+      onFormDataChange({ leader: value });
+    } else if (name === "email" || name === "phone") {
+      onFormDataChange({
+        contactInfo: { ...formData.contactInfo, [name]: value },
+      });
+    }
+  };
+
+  // Handle team member input change
+  const handleTeamMembersChange = (index, value) => {
+    const updatedTeamMembers = [...formData.teamMembers];
+    updatedTeamMembers[index] = value;
+    onFormDataChange({ teamMembers: updatedTeamMembers });
+  };
+
   return (
     <div className="formSection">
-      <p class="contact-info-title">Contact Information</p>
+      <p className="contact-info-title">Contact Information</p>
+
       <div className="form-row">
         <div className="form-label">
-          <label htmlFor="name">Full names of the Applicants</label>
+          <label htmlFor="teamMembers">Full names of the Applicants</label>
         </div>
+
         <div className="form-input">
           {[...Array(5)].map((_, index) => (
             <input
               key={index}
               type="text"
-              id={`name${index}`}
-              name={`name${index}`}
+              id={`teamMember${index}`}
+              name={`teamMember${index}`}
               className="form-control"
+              placeholder={`Team Member ${index + 1}`}
+              value={formData.teamMembers[index] || ""}
+              onChange={(e) => handleTeamMembersChange(index, e.target.value)}
             />
           ))}
+          {errors.teamMembers && (
+            <span className="error-text">{errors.teamMembers}</span>
+          )}
         </div>
       </div>
 
       <div className="form-row">
         <div className="form-label">
-          <label htmlFor="regname">Lead's Name</label>
+          <label htmlFor="leader">Lead's Name</label>
         </div>
         <div className="form-input">
-          <input type="text" id="regname" name="regname" className="form-control" />
+          <input
+            type="text"
+            id="leader"
+            name="leader"
+            className="form-control"
+            value={formData.leader}
+            onChange={handleInputChange}
+          />
+          {errors.leader && <span className="error-text">{errors.leader}</span>}
         </div>
       </div>
 
@@ -42,22 +78,28 @@ const ContactInfo= () => {
             name="email"
             className="form-control"
             placeholder="Enter your email"
+            value={formData.contactInfo.email}
+            onChange={handleInputChange}
           />
+          {errors.email && <span className="error-text">{errors.email}</span>}
         </div>
       </div>
 
       <div className="form-row">
         <div className="form-label">
-          <label htmlFor="contactNo">Contact Number</label>
+          <label htmlFor="phone">Contact Number</label>
         </div>
         <div className="form-input">
           <input
             type="tel"
-            id="contactNo"
-            name="contactNo"
+            id="phone"
+            name="phone"
             className="form-control"
             placeholder="0xx-xxxxxxx"
+            value={formData.contactInfo.phone}
+            onChange={handleInputChange}
           />
+          {errors.phone && <span className="error-text">{errors.phone}</span>}
         </div>
       </div>
     </div>
@@ -65,7 +107,3 @@ const ContactInfo= () => {
 };
 
 export default ContactInfo;
-
-
-
-

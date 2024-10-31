@@ -11,70 +11,20 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
-    const tempData = [];
-
-    for (const itemId in cartItems) {
-      const product = cartItems[itemId];
-      const productData = products.find((p) => p._id === itemId);
-
-      // Check if product has sizes, colors, or neither
-      const hasSizes = productData?.sizes && productData.sizes.length > 0;
-      const hasColors = productData?.colors && productData.colors.length > 0;
-
-      // Case 1: Product has both size and color
-      if (hasSizes && hasColors) {
-        for (const size in product) {
-          if (typeof product[size] === "object") {
-            for (const color in product[size]) {
-              if (product[size][color] > 0) {
-                tempData.push({
-                  _id: itemId,
-                  size: size,
-                  color: color,
-                  quantity: product[size][color],
-                });
-              }
-            }
-          }
-        }
-      }
-      // Case 2: Product has only size
-      else if (hasSizes && !hasColors) {
-        for (const size in product) {
-          if (product[size] > 0) {
-            tempData.push({
-              _id: itemId,
-              size: size,
-              quantity: product[size],
-            });
-          }
-        }
-      }
-      // Case 3: Product has only color
-      else if (!hasSizes && hasColors) {
-        for (const color in product) {
-          if (product[color] > 0) {
-            tempData.push({
-              _id: itemId,
-              color: color,
-              quantity: product[color],
-            });
-          }
-        }
-      }
-      // Case 4: Product has neither size nor color
-      else if (!hasSizes && !hasColors) {
-        if (product > 0) {
+    if (products.length > 0) {
+      const tempData = [];
+      for (const item in cartItems) {
+        if (cartItems[item] > 0) {
           tempData.push({
-            _id: itemId,
-            quantity: product, // Direct quantity (no size or color)
+            _id: item,
+            quantity: cartItems[item],
           });
         }
       }
+      setCartData(tempData);
     }
-    console.log(tempData);
-    setCartData(tempData);
   }, [cartItems, products]);
+
 
   return (
     <div className="border-t pt-14">
@@ -102,22 +52,6 @@ const Cart = () => {
                   <p className="text-xs sm:text-lg font-medium">
                     {productData.name}
                   </p>
-                  <div className="flex items-center gap-5 mt-2">
-                    <p
-                      className={`px-2 sm-px-3 sm:py-1 border bg-slate-50  ${
-                        item.size ? "" : "hidden"
-                      }`}
-                    >
-                      {item.size}
-                    </p>
-                    <p
-                      className={`px-2 sm-px-3 sm:py-1 border bg-slate-50  ${
-                        item.color ? "" : "hidden"
-                      }`}
-                    >
-                      {item.color}
-                    </p>
-                  </div>
                 </div>
               </div>
               {/* Quantity Input */}
@@ -129,21 +63,18 @@ const Cart = () => {
                       ? null
                       : updateQuantity(
                           item._id,
-                          item.size || null,
-                          item.color || null,
                           Number(e.target.value)
                         )
                   }
                   className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 transform -translate-y-14"
                   type="number"
                   min={1}
+                  max={productData.quantity} 
                 />
                 <img
                   onClick={() =>
                     updateQuantity(
                       item._id,
-                      item.size || null,
-                      item.color || null,
                       0
                     )
                   }
@@ -161,7 +92,7 @@ const Cart = () => {
         <div className="w-full text-center">
           <button
             onClick={() => {
-              if (cartData.length>0) {
+              if (cartData.length > 0) {
                 navigate("/inventory-form");
               } else {
                 toast.error("No products in Cart");

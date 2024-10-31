@@ -1,10 +1,11 @@
 import React from 'react'
-import RequestFunds from '../components/Request Funds/RequestFunds'
+import PlaceInventoryReq from './PlaceInventoryReq'
+
 
 const InventoryForm = () => {
   return (
     <div>
-      <RequestFunds/>
+      <PlaceInventoryReq/>
     </div>
   )
 }

@@ -1,13 +1,40 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { backendUrl } from "../App";
+import { toast } from "react-toastify";
+import { Link } from 'react-router-dom';
 
-// Dummy user data
-const users = [
-  { name: "Janindu Ranawaka", email: "janindu.admin@fundventory.com", role: "Admin" },
-  { name: "Sachindu Ravishan", email: "sachindu@example.com", role: "User" },
-  { name: "Nisitha Padeniya", email: "nisitha@example.com", role: "User" },
-];
+const Users = ({ token }) => {
+  const [users, setUsers] = useState([]);
 
-const UserList = () => {
+  const fetchUsers = async () => {
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/user/all",
+        {},
+        { headers: { token } }
+      );
+
+      if (response.data.success) {
+        setUsers(response.data.users);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [token]);
+
   return (
     <div>
       <h2 className="mb-2">Users</h2>
@@ -28,17 +55,17 @@ const UserList = () => {
         >
           <p>{user.name}</p>
           <p>{user.email}</p>
-          <p>{user.role}</p>
-          <a
-            href={`/user/${index}`}
+          <p>{user.userRole}</p>
+          <Link
+            to={`/user/${user._id}`}
             className="text-blue-500 hover:underline"
           >
             View User
-          </a>
+          </Link>
         </div>
       ))}
     </div>
   );
 };
 
-export default UserList;
+export default Users;

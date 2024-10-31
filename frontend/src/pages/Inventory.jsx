@@ -29,8 +29,8 @@ const Inventory = () => {
 
   const subCategoryOptions = {
     Consumables: ["Resistors", "IC Bases", "LEDs","Wires"],
-    Equipment: ["Drills", "Grinders"],
-    Components: ["Arduino", "Raspberry"],
+    Equipment: ["Power Tools","Soldering Tools","Safety Equipment"],
+    Components: ["Development Boards","Sensors","Motors"],
     Stations: ["Measuring", "Soldering","Assembly"],
   };
 
@@ -121,9 +121,9 @@ const Inventory = () => {
       if (availabilityFilter === 'All') {
         return true;
       } else if (availabilityFilter === 'In Stock') {
-        return product.available;
+        return product.availability;
       } else if (availabilityFilter === 'Out of Stock') {
-        return !product.available;
+        return !product.availability;
       }
       return true;
     });
@@ -189,7 +189,7 @@ const Inventory = () => {
               <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6'>
                 {
                   currentProducts.map((item,index)=>(
-                    <ProductItem key={index} name={item.name} image={item.image} available ={item.available} id= {item._id} />
+                    <ProductItem key={index} name={item.name} image={item.image} availability ={item.availability} id= {item._id} />
                   ))
                 }
 

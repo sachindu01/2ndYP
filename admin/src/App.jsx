@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import { Routes, Route } from "react-router-dom";
@@ -10,9 +10,20 @@ import Login from "./components/Login";
 import Users from "./pages/Users";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UserProfile from "./pages/UserProfile";
+import Fund from "./pages/Fund";
+
+
+
+export const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 const App = () => {
-  const [token, setToken] = useState("cc");
+  const [token, setToken] = useState(localStorage.getItem('token')?
+    localStorage.getItem('token'):'');
+
+  useEffect(()=>{
+    localStorage.setItem('token',token)
+  },[token])
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -27,10 +38,12 @@ const App = () => {
             <Sidebar />
             <div className="w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-600 text-base">
               <Routes>
-                <Route path="/add" element={<Add />} />
-                <Route path="/list" element={<List />} />
-                <Route path="/request" element={<Request />} />
-                <Route path="/users" element={<Users />} />
+                <Route path="/add" element={<Add token={token}/>} />
+                <Route path="/list" element={<List token={token} />} />
+                <Route path="/request" element={<Request token={token} />} />
+                <Route path="/users" element={<Users token={token}/>} />
+                <Route path="/user/:id" element={<UserProfile token={token} />} />
+                <Route path="/fundreq" element={<Fund token={token} />} />
               </Routes>
             </div>
           </div>
